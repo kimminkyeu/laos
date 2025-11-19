@@ -15,6 +15,7 @@ const WallBanner = () => {
 
     // Consistent spacing
     const ZONE_PADDING = 40; // Consistent left-right padding for all zones
+    const VERTICAL_GAP = 40; // Gap between visual area and text area
 
     // Layout calculations (matching HTML example)
     const headerHeight = 160; // 10% of 1600px
@@ -25,7 +26,7 @@ const WallBanner = () => {
 
     const visualBandTop = contentTop;
     const visualBandHeight = contentHeight * 0.65; // 65% for images
-    const textBandTop = visualBandTop + visualBandHeight + 15;
+    const textBandTop = visualBandTop + visualBandHeight + VERTICAL_GAP;
 
     return (
             <div style={bannerStyle}>
