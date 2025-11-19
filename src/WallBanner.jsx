@@ -165,14 +165,18 @@ const WallBanner = () => {
                                 height: '60%',
                                 backgroundColor: '#93c5fd',
                                 borderRadius: '8px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
+                                overflow: 'hidden',
                                 marginBottom: '40px'
                             }}>
-                                <div style={{ textAlign: 'center', color: '#1e3a8a', fontSize: '18px', fontWeight: '600' }}>
-                                    World Map<br/>Korea → 18 Countries
-                                </div>
+                                <img
+                                    src="/photos/01/map.png"
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'cover'
+                                    }}
+                                    alt="World Map"
+                                />
                             </div>
 
                             {/* Statistics */}
@@ -280,14 +284,17 @@ const WallBanner = () => {
                                 flex: '0 0 60%',
                                 backgroundColor: '#93c5fd',
                                 borderRadius: '8px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontSize: '18px',
-                                fontWeight: '600',
-                                color: '#1e3a8a'
+                                overflow: 'hidden'
                             }}>
-                                MOU Signing<br/>Main Photo
+                                <img
+                                    src="/photos/02/1-2. FB_IMG_1685431432845.jpg"
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'cover'
+                                    }}
+                                    alt="MOU Signing"
+                                />
                             </div>
 
                             {/* Right: 3 Sub Photos stacked (40%) */}
@@ -301,35 +308,50 @@ const WallBanner = () => {
                                     flex: 1,
                                     backgroundColor: '#bfdbfe',
                                     borderRadius: '8px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    fontSize: '14px',
-                                    fontWeight: '600',
-                                    color: '#1e3a8a'
-                                }}>Campus</div>
+                                    overflow: 'hidden'
+                                }}>
+                                    <img
+                                        src="/photos/02/1.png"
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover'
+                                        }}
+                                        alt="Chart 1"
+                                    />
+                                </div>
                                 <div style={{
                                     flex: 1,
                                     backgroundColor: '#bfdbfe',
                                     borderRadius: '8px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    fontSize: '14px',
-                                    fontWeight: '600',
-                                    color: '#1e3a8a'
-                                }}>Meeting</div>
+                                    overflow: 'hidden'
+                                }}>
+                                    <img
+                                        src="/photos/02/2.png"
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover'
+                                        }}
+                                        alt="Chart 2"
+                                    />
+                                </div>
                                 <div style={{
                                     flex: 1,
                                     backgroundColor: '#bfdbfe',
                                     borderRadius: '8px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    fontSize: '14px',
-                                    fontWeight: '600',
-                                    color: '#1e3a8a'
-                                }}>Team</div>
+                                    overflow: 'hidden'
+                                }}>
+                                    <img
+                                        src="/photos/02/3.png"
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover'
+                                        }}
+                                        alt="Chart 3"
+                                    />
+                                </div>
                             </div>
                         </div>
 
@@ -425,20 +447,25 @@ const WallBanner = () => {
                             alignItems: 'center',
                             gap: '10px'
                         }}>
-                            {/* Card 1 */}
+                            {/* Step 1 */}
                             <div style={{ flex: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
                                 <div style={{
                                     flex: 1,
                                     backgroundColor: '#99f6e4',
                                     borderRadius: '8px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    fontSize: '14px',
-                                    fontWeight: '600',
-                                    color: '#0f766e',
+                                    overflow: 'hidden',
                                     marginBottom: '12px'
-                                }}>Facility<br/>Improvement</div>
+                                }}>
+                                    <img
+                                        src="/photos/03-present/1.jpg"
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover'
+                                        }}
+                                        alt="Step 1"
+                                    />
+                                </div>
                                 <div style={{
                                     padding: '12px',
                                     backgroundColor: 'white',
@@ -452,20 +479,25 @@ const WallBanner = () => {
                             {/* Arrow */}
                             <div style={{ fontSize: '32px', color: '#14b8a6', fontWeight: 'bold' }}>▶</div>
 
-                            {/* Card 2 */}
+                            {/* Step 2 */}
                             <div style={{ flex: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
                                 <div style={{
                                     flex: 1,
                                     backgroundColor: '#99f6e4',
                                     borderRadius: '8px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    fontSize: '14px',
-                                    fontWeight: '600',
-                                    color: '#0f766e',
+                                    overflow: 'hidden',
                                     marginBottom: '12px'
-                                }}>Equipment<br/>Introduction</div>
+                                }}>
+                                    <img
+                                        src="/photos/03-present/FB_IMG_1716934774544.jpg"
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover'
+                                        }}
+                                        alt="Step 2"
+                                    />
+                                </div>
                                 <div style={{
                                     padding: '12px',
                                     backgroundColor: 'white',
@@ -479,20 +511,25 @@ const WallBanner = () => {
                             {/* Arrow */}
                             <div style={{ fontSize: '32px', color: '#14b8a6', fontWeight: 'bold' }}>▶</div>
 
-                            {/* Card 3 */}
+                            {/* Step 3 */}
                             <div style={{ flex: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
                                 <div style={{
                                     flex: 1,
                                     backgroundColor: '#99f6e4',
                                     borderRadius: '8px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    fontSize: '14px',
-                                    fontWeight: '600',
-                                    color: '#0f766e',
+                                    overflow: 'hidden',
                                     marginBottom: '12px'
-                                }}>Faculty<br/>Development</div>
+                                }}>
+                                    <img
+                                        src="/photos/03-future/4.jpg"
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover'
+                                        }}
+                                        alt="Step 3"
+                                    />
+                                </div>
                                 <div style={{
                                     padding: '12px',
                                     backgroundColor: 'white',
@@ -506,20 +543,25 @@ const WallBanner = () => {
                             {/* Arrow */}
                             <div style={{ fontSize: '32px', color: '#14b8a6', fontWeight: 'bold' }}>▶</div>
 
-                            {/* Card 4 */}
+                            {/* Step 4 */}
                             <div style={{ flex: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
                                 <div style={{
                                     flex: 1,
                                     backgroundColor: '#99f6e4',
                                     borderRadius: '8px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    fontSize: '14px',
-                                    fontWeight: '600',
-                                    color: '#0f766e',
+                                    overflow: 'hidden',
                                     marginBottom: '12px'
-                                }}>Curriculum<br/>Design</div>
+                                }}>
+                                    <img
+                                        src="/photos/03-future/5.jpg"
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover'
+                                        }}
+                                        alt="Step 4"
+                                    />
+                                </div>
                                 <div style={{
                                     padding: '12px',
                                     backgroundColor: 'white',
