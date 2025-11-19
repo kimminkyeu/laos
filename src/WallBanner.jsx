@@ -143,13 +143,47 @@ const WallBanner = () => {
                             top: `${textBandTop}px`,
                             left: `${ZONE_PADDING}px`,
                             right: `${ZONE_PADDING}px`,
-                            color: '#374151',
-                            fontSize: '16px',
-                            lineHeight: '1.6'
+                            bottom: '20px',
+                            display: 'flex',
+                            gap: '30px'
                         }}>
-                            <p style={{ margin: 0, fontWeight: '600' }}>
-                                Leading University Projects for International Development Cooperation
-                            </p>
+                            {/* Left Column */}
+                            <div style={{
+                                flex: '0 0 240px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '10px'
+                            }}>
+                                <h3 style={{
+                                    margin: 0,
+                                    fontSize: '22px',
+                                    fontWeight: '800',
+                                    color: '#1e3a8a',
+                                    lineHeight: '1.3'
+                                }}>
+                                    Global Reach
+                                </h3>
+                                <p style={{
+                                    margin: 0,
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    color: '#374151',
+                                    lineHeight: '1.5'
+                                }}>
+                                    Leading University Projects for International Development
+                                </p>
+                            </div>
+                            {/* Right Column */}
+                            <div style={{ flex: 1 }}>
+                                <p style={{
+                                    margin: 0,
+                                    fontSize: '13px',
+                                    color: '#6b7280',
+                                    lineHeight: '1.6'
+                                }}>
+                                    Seoul National University has established partnerships with 18 countries across Asia, Africa, and Latin America, implementing 53 development cooperation projects that address local challenges through academic excellence and sustainable solutions.
+                                </p>
+                            </div>
                         </div>
                     </div>
 
@@ -258,16 +292,47 @@ const WallBanner = () => {
                             top: `${textBandTop}px`,
                             left: `${ZONE_PADDING}px`,
                             right: `${ZONE_PADDING}px`,
-                            color: '#374151',
-                            fontSize: '16px',
-                            lineHeight: '1.6'
+                            bottom: '20px',
+                            display: 'flex',
+                            gap: '30px'
                         }}>
-                            <p style={{ margin: 0, fontWeight: '600', color: '#1f3578', marginBottom: '8px' }}>
-                                "Responding to local demand for dairy professionals"
-                            </p>
-                            <p style={{ margin: 0, fontSize: '14px' }}>
-                                Partnership established to develop Laos' first dairy science program
-                            </p>
+                            {/* Left Column */}
+                            <div style={{
+                                flex: '0 0 340px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '10px'
+                            }}>
+                                <h3 style={{
+                                    margin: 0,
+                                    fontSize: '22px',
+                                    fontWeight: '800',
+                                    color: '#1e40af',
+                                    lineHeight: '1.3'
+                                }}>
+                                    Strategic Partnership
+                                </h3>
+                                <p style={{
+                                    margin: 0,
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    color: '#1f3578',
+                                    lineHeight: '1.5'
+                                }}>
+                                    "Responding to local demand for dairy professionals"
+                                </p>
+                            </div>
+                            {/* Right Column */}
+                            <div style={{ flex: 1 }}>
+                                <p style={{
+                                    margin: 0,
+                                    fontSize: '13px',
+                                    color: '#6b7280',
+                                    lineHeight: '1.6'
+                                }}>
+                                    SNU and the National University of Laos signed an MOU in 2019 to establish the first dairy science department in Laos, combining Korean expertise in agricultural education with local knowledge to build a sustainable dairy industry workforce.
+                                </p>
+                            </div>
                         </div>
                     </div>
 
@@ -425,13 +490,47 @@ const WallBanner = () => {
                             top: `${textBandTop}px`,
                             left: `${ZONE_PADDING}px`,
                             right: `${ZONE_PADDING}px`,
-                            color: '#374151',
-                            fontSize: '16px',
-                            lineHeight: '1.6'
+                            bottom: '20px',
+                            display: 'flex',
+                            gap: '40px'
                         }}>
-                            <p style={{ margin: 0, fontWeight: '600' }}>
-                                Systematic approach to building sustainable dairy science education
-                            </p>
+                            {/* Left Column */}
+                            <div style={{
+                                flex: '0 0 420px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '10px'
+                            }}>
+                                <h3 style={{
+                                    margin: 0,
+                                    fontSize: '22px',
+                                    fontWeight: '800',
+                                    color: '#0f766e',
+                                    lineHeight: '1.3'
+                                }}>
+                                    Four-Phase Transformation
+                                </h3>
+                                <p style={{
+                                    margin: 0,
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    color: '#374151',
+                                    lineHeight: '1.5'
+                                }}>
+                                    Systematic approach to building sustainable dairy science education
+                                </p>
+                            </div>
+                            {/* Right Column */}
+                            <div style={{ flex: 1 }}>
+                                <p style={{
+                                    margin: 0,
+                                    fontSize: '13px',
+                                    color: '#6b7280',
+                                    lineHeight: '1.6'
+                                }}>
+                                    The project encompasses comprehensive facility upgrades, introduction of modern dairy technology, intensive faculty training programs, and collaborative curriculum design to ensure long-term sustainability and educational excellence.
+                                </p>
+                            </div>
                         </div>
                     </div>
 
@@ -537,13 +636,47 @@ const WallBanner = () => {
                             top: `${textBandTop}px`,
                             left: `${ZONE_PADDING}px`,
                             right: `${ZONE_PADDING}px`,
-                            color: '#374151',
-                            fontSize: '16px',
-                            lineHeight: '1.6'
+                            bottom: '20px',
+                            display: 'flex',
+                            gap: '30px'
                         }}>
-                            <p style={{ margin: 0, fontWeight: '600', color: '#d97706' }}>
-                                A new chapter in agricultural education and international cooperation
-                            </p>
+                            {/* Left Column */}
+                            <div style={{
+                                flex: '0 0 340px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '10px'
+                            }}>
+                                <h3 style={{
+                                    margin: 0,
+                                    fontSize: '22px',
+                                    fontWeight: '800',
+                                    color: '#d97706',
+                                    lineHeight: '1.3'
+                                }}>
+                                    Milestone Achievement
+                                </h3>
+                                <p style={{
+                                    margin: 0,
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    color: '#92400e',
+                                    lineHeight: '1.5'
+                                }}>
+                                    Laos' First Dairy Science Department Successfully Established
+                                </p>
+                            </div>
+                            {/* Right Column */}
+                            <div style={{ flex: 1 }}>
+                                <p style={{
+                                    margin: 0,
+                                    fontSize: '13px',
+                                    color: '#6b7280',
+                                    lineHeight: '1.6'
+                                }}>
+                                    In 2023, the department welcomed its first cohort of 30 students, marking a historic moment in Lao agricultural education. The program now trains the next generation of dairy specialists who will drive the nation's dairy industry development and food security.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
