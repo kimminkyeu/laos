@@ -28,6 +28,12 @@ const WallBanner = () => {
     const visualBandHeight = contentHeight * 0.65; // 65% for images
     const textBandTop = visualBandTop + visualBandHeight + VERTICAL_GAP;
 
+    // Zone 4 special positioning (emphasized)
+    const zone4TitleTop = 140;
+    const zone4VisualTop = zone4TitleTop + 150; // Title height + gap (increased from 120)
+    const zone4VisualHeight = contentHeight * 0.65;
+    const zone4TextTop = zone4VisualTop + zone4VisualHeight + VERTICAL_GAP;
+
     return (
             <div style={bannerStyle}>
                 {/* Header Bar */}
@@ -684,18 +690,18 @@ const WallBanner = () => {
                         {/* Section Number */}
                         <div style={{
                             position: 'absolute',
-                            top: '20px',
+                            top: '40px',
                             left: '20px',
-                            fontSize: '48px',
+                            fontSize: '72px',
                             fontWeight: '900',
                             color: '#d97706',
-                            opacity: 0.2
+                            opacity: 0.3
                         }}>04</div>
 
                         {/* Title */}
                         <h2 style={{
-                            marginTop: '80px',
-                            fontSize: '32px',
+                            marginTop: '140px',
+                            fontSize: '48px',
                             fontWeight: 'bold',
                             color: '#d97706',
                             marginBottom: '0',
@@ -707,10 +713,10 @@ const WallBanner = () => {
                         {/* Visual Band Area - Hero Image with Overlay */}
                         <div style={{
                             position: 'absolute',
-                            top: `${visualBandTop}px`,
+                            top: `${zone4VisualTop}px`,
                             left: `${ZONE_PADDING}px`,
                             right: `${ZONE_PADDING}px`,
-                            height: `${visualBandHeight}px`,
+                            height: `${zone4VisualHeight}px`,
                             backgroundColor: '#fcd34d',
                             borderRadius: '8px',
                             display: 'flex',
@@ -772,7 +778,7 @@ const WallBanner = () => {
                         {/* Text Area */}
                         <div style={{
                             position: 'absolute',
-                            top: `${textBandTop}px`,
+                            top: `${zone4TextTop}px`,
                             left: `${ZONE_PADDING}px`,
                             right: `${ZONE_PADDING}px`,
                             bottom: '20px',
