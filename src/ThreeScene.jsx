@@ -1,7 +1,12 @@
 // src/ThreeScene.jsx
 import React, { useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom/client';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import html2canvas from 'html2canvas';
+import WallBanner from './WallBanner.jsx';
+import StandBanner1 from './StandBanner1.jsx';
+import StandBanner3 from './StandBanner3.jsx';
 
 const ThreeScene = () => {
     const mountRef = useRef(null);
@@ -146,26 +151,196 @@ const ThreeScene = () => {
         const mat4m = [new THREE.MeshBasicMaterial({ map: tex4m }), new THREE.MeshBasicMaterial({ map: tex4m }), whiteMat, whiteMat, whiteMat, whiteMat];
         createSketchObject(new THREE.BoxGeometry(0.05, 0.3, 4), null, -2.95, 2.35, 0, 0, 0, 0, mat4m);
 
-        // Backwall with exported texture
+        // Backwall with WallBanner component rendered as texture
         const backwallGeo = new THREE.BoxGeometry(4.0, 1.6, 0.05);
         const backwall = createSketchObject(backwallGeo, 0xffffff, 0.9, 0.8, -1.9);
-        const backwallTexture = new THREE.TextureLoader().load(
-            '/wall_banner_exported.png', // Corrected path for Vite's public directory
-            undefined, // onLoad
-            undefined, // onProgress
-            () => { // onError
-                console.log("Could not load texture, using placeholder.");
-                backwall.mesh.material = new THREE.MeshBasicMaterial({ map: createTextTexture("Error: Load wall_banner_exported.png") });
-            }
-        );
-        backwall.mesh.material = new THREE.MeshBasicMaterial({ map: backwallTexture, side: THREE.DoubleSide });
 
-        // Other booth elements...
+        // Create a container for rendering WallBanner
+        const bannerContainer = document.createElement('div');
+        bannerContainer.style.width = '1600px';
+        bannerContainer.style.height = '640px';
+        bannerContainer.style.position = 'fixed';
+        bannerContainer.style.left = '-10000px'; // Off-screen but still rendered
+        bannerContainer.style.top = '0';
+        document.body.appendChild(bannerContainer);
+
+        const root = ReactDOM.createRoot(bannerContainer);
+        root.render(<WallBanner />);
+
+        // Wait for fonts and images to load, then capture
+        const captureAndApplyTexture = () => {
+            // Wait for fonts
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(() => {
+                    setTimeout(() => {
+                        const element = bannerContainer.querySelector('div');
+                        if (!element) {
+                            console.error("WallBanner element not found");
+                            return;
+                        }
+
+                        // Wait for images to load
+                        const images = element.querySelectorAll('img');
+                        const imagePromises = Array.from(images).map(img => {
+                            if (img.complete) return Promise.resolve();
+                            return new Promise((resolve) => {
+                                img.onload = resolve;
+                                img.onerror = resolve; // Resolve even on error
+                            });
+                        });
+
+                        Promise.all(imagePromises).then(() => {
+                            html2canvas(element, {
+                                scale: 2,
+                                useCORS: true,
+                                allowTaint: true,
+                                backgroundColor: '#ffffff',
+                                logging: false
+                            }).then(canvas => {
+                                const texture = new THREE.CanvasTexture(canvas);
+                                texture.needsUpdate = true;
+                                backwall.mesh.material = new THREE.MeshBasicMaterial({
+                                    map: texture,
+                                    side: THREE.DoubleSide
+                                });
+                            }).catch(err => {
+                                console.error("Error rendering WallBanner:", err);
+                            });
+                        });
+                    }, 1000); // Increased delay for React 18
+                });
+            }
+        };
+
+        captureAndApplyTexture();
+
+        // Stand Banner 1
         const standBannerGeo = new THREE.BoxGeometry(0.5, 1.5, 0.02);
-        createSketchObject(standBannerGeo, 0xffffff, -2.5, 0.75, 1.5, -0.2, 0.5, 0).mesh.material = new THREE.MeshBasicMaterial({ map: createTextTexture("X-배너 1") });
+        const standBanner1Obj = createSketchObject(standBannerGeo, 0xffffff, -2.5, 0.75, 1.5, -0.2, 0.5, 0);
         createSketchObject(new THREE.BoxGeometry(0.4, 0.05, 0.3), 0x333333, -2.5, 0.025, 1.6, 0, 0.5, 0);
-        createSketchObject(standBannerGeo, 0xffffff, 1.5, 0.75, 1.5, -0.2, -0.3, 0).mesh.material = new THREE.MeshBasicMaterial({ map: createTextTexture("X-배너 2") });
+
+        // Stand Banner 3
+        const standBanner3Obj = createSketchObject(standBannerGeo, 0xffffff, 1.5, 0.75, 1.5, -0.2, -0.3, 0);
         createSketchObject(new THREE.BoxGeometry(0.4, 0.05, 0.3), 0x333333, 1.5, 0.025, 1.6, 0, -0.3, 0);
+
+        // Create containers for StandBanner1
+        const banner1Container = document.createElement('div');
+        banner1Container.style.width = '500px';
+        banner1Container.style.height = '1500px';
+        banner1Container.style.position = 'fixed';
+        banner1Container.style.left = '0';
+        banner1Container.style.top = '0';
+        banner1Container.style.opacity = '0';
+        banner1Container.style.pointerEvents = 'none';
+        banner1Container.style.zIndex = '-1';
+        document.body.appendChild(banner1Container);
+
+        const root1 = ReactDOM.createRoot(banner1Container);
+        root1.render(<StandBanner1 />);
+
+        // Create containers for StandBanner3
+        const banner3Container = document.createElement('div');
+        banner3Container.style.width = '500px';
+        banner3Container.style.height = '1500px';
+        banner3Container.style.position = 'fixed';
+        banner3Container.style.left = '0';
+        banner3Container.style.top = '1600px';
+        banner3Container.style.opacity = '0';
+        banner3Container.style.pointerEvents = 'none';
+        banner3Container.style.zIndex = '-1';
+        document.body.appendChild(banner3Container);
+
+        const root3 = ReactDOM.createRoot(banner3Container);
+        root3.render(<StandBanner3 />);
+
+        // Capture and apply StandBanner1 texture
+        const captureStandBanner1 = () => {
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(() => {
+                    setTimeout(() => {
+                        const element = banner1Container.querySelector('div');
+                        if (!element) {
+                            console.error("StandBanner1 element not found");
+                            return;
+                        }
+
+                        const images = element.querySelectorAll('img');
+                        const imagePromises = Array.from(images).map(img => {
+                            if (img.complete) return Promise.resolve();
+                            return new Promise((resolve) => {
+                                img.onload = resolve;
+                                img.onerror = resolve;
+                            });
+                        });
+
+                        Promise.all(imagePromises).then(() => {
+                            html2canvas(element, {
+                                scale: 2,
+                                useCORS: true,
+                                allowTaint: true,
+                                backgroundColor: '#6b7a87',
+                                logging: false
+                            }).then(canvas => {
+                                const texture = new THREE.CanvasTexture(canvas);
+                                texture.needsUpdate = true;
+                                standBanner1Obj.mesh.material = new THREE.MeshBasicMaterial({
+                                    map: texture,
+                                    side: THREE.DoubleSide
+                                });
+                            }).catch(err => {
+                                console.error("Error rendering StandBanner1:", err);
+                            });
+                        });
+                    }, 1000);
+                });
+            }
+        };
+
+        // Capture and apply StandBanner3 texture
+        const captureStandBanner3 = () => {
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(() => {
+                    setTimeout(() => {
+                        const element = banner3Container.querySelector('div');
+                        if (!element) {
+                            console.error("StandBanner3 element not found");
+                            return;
+                        }
+
+                        const images = element.querySelectorAll('img');
+                        const imagePromises = Array.from(images).map(img => {
+                            if (img.complete) return Promise.resolve();
+                            return new Promise((resolve) => {
+                                img.onload = resolve;
+                                img.onerror = resolve;
+                            });
+                        });
+
+                        Promise.all(imagePromises).then(() => {
+                            html2canvas(element, {
+                                scale: 2,
+                                useCORS: true,
+                                allowTaint: true,
+                                backgroundColor: '#4a9b8e',
+                                logging: false
+                            }).then(canvas => {
+                                const texture = new THREE.CanvasTexture(canvas);
+                                texture.needsUpdate = true;
+                                standBanner3Obj.mesh.material = new THREE.MeshBasicMaterial({
+                                    map: texture,
+                                    side: THREE.DoubleSide
+                                });
+                            }).catch(err => {
+                                console.error("Error rendering StandBanner3:", err);
+                            });
+                        });
+                    }, 1000);
+                });
+            }
+        };
+
+        captureStandBanner1();
+        captureStandBanner3();
 
         function createChair(x, y, z, rY) { /* chair creation logic */ }
         createSketchObject(new THREE.BoxGeometry(1.2, 0.75, 0.6), 0xffffff, -1.5, 0.375, -0.2); 
@@ -194,6 +369,22 @@ const ThreeScene = () => {
             window.removeEventListener('resize', handleResize);
             if (renderer.domElement) {
                 currentMount.removeChild(renderer.domElement);
+            }
+            // Clean up React root and container
+            // Defer unmount to avoid race condition during React render
+            setTimeout(() => {
+                root.unmount();
+                root1.unmount();
+                root3.unmount();
+            }, 0);
+            if (bannerContainer.parentNode) {
+                document.body.removeChild(bannerContainer);
+            }
+            if (banner1Container.parentNode) {
+                document.body.removeChild(banner1Container);
+            }
+            if (banner3Container.parentNode) {
+                document.body.removeChild(banner3Container);
             }
             // Dispose of geometries, materials, textures to free memory
             scene.traverse(object => {

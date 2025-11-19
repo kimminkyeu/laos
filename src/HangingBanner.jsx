@@ -11,7 +11,6 @@ const HangingBanner = () => {
         flexDirection: 'column',
         position: 'relative',
         fontFamily: "'Roboto', 'Noto Sans KR', sans-serif",
-        overflow: 'hidden',
     };
 
     const logoStyle = {
@@ -28,35 +27,43 @@ const HangingBanner = () => {
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
+        zIndex: 20,
     };
 
     return (
         <div className="w-full h-full flex items-center justify-center p-8">
-             <div style={bannerStyle}>
-                {/* Backgrounds */}
-                <div className="absolute top-0 left-0 w-full h-[70%] bg-white z-0"></div>
-                <div className="absolute bottom-0 left-0 w-full h-[30%] bg-[#89a5c8] z-0 flex items-center justify-center">
-                    <p className="text-white font-bold text-sm tracking-wider uppercase whitespace-nowrap">
-                        SNU Leading University Projects for International Cooperation
+            <div style={bannerStyle}>
+                {/* Top Section - White background with title and subtitle */}
+                <div className="h-[65%] bg-white flex flex-col items-center justify-center px-4">
+                    <h1 className="text-[#1f3578] font-black text-xl tracking-wide leading-none">
+                        NUOL - SNU
+                    </h1>
+                    <p className="text-[#1f3578] font-semibold text-[10px] leading-tight tracking-tight mt-0.5">
+                        Remodeling the livestock department (dairy course) of the National University of Laos
                     </p>
                 </div>
 
-                {/* Content */}
-                <div className="relative z-10 w-full h-full flex items-center justify-center">
-                    <div style={{...logoStyle, left: '20px'}}>
-                        <img src="/photos/라오스국립대 로고.png" alt="NUOL Logo" className="max-w-full max-h-full object-contain p-1" />
-                    </div>
+                {/* Bottom Section - Blue background */}
+                <div className="h-[35%] bg-[#89a5c8] flex items-center justify-center px-4">
+                    <p className="text-white font-bold text-[11px] tracking-wider uppercase whitespace-nowrap leading-none">
+                        SNU LEADING UNIVERSITY PROJECTS FOR INTERNATIONAL COOPERATION
+                    </p>
+                </div>
 
-                    <div className="text-center text-[#1f3578]">
-                        <h1 className="text-2xl font-black tracking-wide leading-tight">NUOL - SNU</h1>
-                        <p className="font-semibold text-xs leading-none tracking-tight mt-1">
-                            Remodeling the livestock department (dairy course) of the National University of Laos
-                        </p>
-                    </div>
-
-                    <div style={{...logoStyle, right: '20px'}}>
-                        <img src="/photos/서울대로고.png" alt="SNU Logo" className="max-w-full max-h-full object-contain p-1" />
-                    </div>
+                {/* Logos */}
+                <div style={{...logoStyle, left: '20px'}}>
+                    <img
+                        src="/photos/nuol.png"
+                        alt="NUOL Logo"
+                        className="w-full h-full object-contain"
+                    />
+                </div>
+                <div style={{...logoStyle, right: '20px'}}>
+                    <img
+                        src="/photos/snu.png"
+                        alt="SNU Logo"
+                        className="w-full h-full object-contain"
+                    />
                 </div>
             </div>
         </div>

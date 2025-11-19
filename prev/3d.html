@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4m x 6m Booth Layout (Custom Banner)</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #f0f0f0; font-family: 'Noto Sans KR', sans-serif; }
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            pointer-events: none;
+            max-width: 300px;
+        }
+        h1 { margin: 0 0 5px 0; font-size: 18px; color: #333; }
+        p { margin: 0; font-size: 14px; color: #666; }
+        .controls {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+    <div id="info">
+        <h1>4m x 6m 부스 시뮬레이션</h1>
+        <p>현수막 디자인 시안 적용 (NUOL - SNU)</p>
+        <div class="controls">
+            🖱️ 왼쪽 클릭 + 드래그: 회전<br>
+            🖱️ 오른쪽 클릭 + 드래그: 이동<br>
+            🖱️ 휠: 줌 인/아웃
+        </div>
+    </div>
+    <script>
+        // 1. Scene Setup
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xffffff);
+        scene.fog = new THREE.Fog(0xffffff, 10, 50);
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(8, 6, 8);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.appendChild(renderer.domElement);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.target.set(0, 1, 0);
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.7);
+        dirLight.position.set(5, 10, 7);
+        dirLight.castShadow = true;
+        dirLight.shadow.mapSize.width = 2048;
+        dirLight.shadow.mapSize.height = 2048;
+        scene.add(dirLight);
+
+        // --- TEXTURE GENERATION FOR BANNER ---
+        function createBannerTexture(widthM, heightM) {
+            const canvas = document.createElement('canvas');
+            const scaleFactor = 100; // Pixels per meter
+            canvas.width = widthM * scaleFactor * 2; // High res
+            canvas.height = heightM * scaleFactor * 2;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+
+            // Colors
+            const snuBlue = '#1f3578';
+            const lightBlue = '#89a5c8';
+            const white = '#ffffff';
+
+            // 1. Backgrounds
+            // Top 70% White
+            ctx.fillStyle = white;
+            ctx.fillRect(0, 0, w, h * 0.7);
+            // Bottom 30% Light Blue
+            ctx.fillStyle = lightBlue;
+            ctx.fillRect(0, h * 0.7, w, h * 0.3);
+
+            // 2. Text
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
+            // Title: NUOL - SNU
+            ctx.fillStyle = snuBlue;
+            ctx.font = `900 ${h * 0.35}px Roboto, sans-serif`; // Scale font relative to height
+            ctx.fillText("NUOL - SNU", w / 2, h * 0.35);
+
+            // Subtitle
+            ctx.fillStyle = snuBlue;
+            ctx.font = `600 ${h * 0.12}px Noto Sans KR, sans-serif`;
+            ctx.fillText("Remodeling the livestock department (dairy course) of the National University of Laos", w / 2, h * 0.55);
+
+            // Footer
+            ctx.fillStyle = white;
+            ctx.font = `700 ${h * 0.15}px Roboto, sans-serif`;
+            ctx.fillText("SNU Leading University Projects for International Cooperation", w / 2, h * 0.85);
+
+            // 3. Create Texture
+            const texture = new THREE.CanvasTexture(canvas);
+            
+            // 4. Async Load Logos
+            const loadLogo = (src, x, y) => {
+                const img = new Image();
+                img.crossOrigin = "Anonymous";
+                img.onload = () => {
+                    // Draw Circle Background
+                    const radius = h * 0.4; // Logo size
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(x, h/2, radius/2, 0, Math.PI * 2);
+                    ctx.fillStyle = 'white';
+                    ctx.fill();
+                    ctx.shadowColor = "rgba(0,0,0,0.2)";
+                    ctx.shadowBlur = 10;
+                    ctx.shadowOffsetY = 5;
+                    ctx.stroke();
+                    ctx.clip();
+
+                    // Draw Image
+                    ctx.drawImage(img, x - radius/2, h/2 - radius/2, radius, radius);
+                    ctx.restore();
+                    
+                    texture.needsUpdate = true;
+                };
+                img.onerror = () => {
+                    // Fallback circle if image fails
+                    const radius = h * 0.4;
+                    ctx.beginPath();
+                    ctx.arc(x, h/2, radius/2, 0, Math.PI * 2);
+                    ctx.fillStyle = 'white';
+                    ctx.fill();
+                    ctx.strokeStyle = '#eee';
+                    ctx.lineWidth = 5;
+                    ctx.stroke();
+                    ctx.fillStyle = snuBlue;
+                    ctx.font = `bold ${h * 0.1}px sans-serif`;
+                    ctx.fillText("LOGO", x, h/2);
+                    texture.needsUpdate = true;
+                };
+                img.src = src;
+            };
+
+            // Logo Positions (Left and Right, with margin)
+            const margin = w * 0.08; 
+            // NUOL Logo (Left)
+            loadLogo("https://raw.githubusercontent.com/kimminkyeu/tmp/refs/heads/master/photos/%E1%84%8C%E1%85%A2%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%87%E1%85%B5/%E1%84%85%E1%85%A1%E1%84%8B%E1%85%A9%E1%84%89%E1%85%B3%E1%84%80%E1%85%A9%E1%86%A8%E1%84%85%E1%85%B8%E1%84%83%E1%85%A2%20%E1%84%85%E1%85%A9%E1%84%80%E1%85%A9.png", margin, h/2);
+            // SNU Logo (Right)
+            loadLogo("https://raw.githubusercontent.com/kimminkyeu/tmp/refs/heads/master/photos/%E1%84%8C%E1%85%A2%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%87%E1%85%B5/%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AE%E1%86%AF%E1%84%83%E1%85%A2%E1%84%85%E1%85%A9%E1%84%80%E1%85%A9.png", w - margin, h/2);
+
+            return texture;
+        }
+
+        // Helper Materials
+        function createEdgeMaterial() {
+            return new THREE.LineBasicMaterial({ color: 0x333333, linewidth: 1 });
+        }
+
+        function createFaceMaterial(color = 0xffffff, opacity = 1) {
+            return new THREE.MeshLambertMaterial({ 
+                color: color, 
+                polygonOffset: true, 
+                polygonOffsetFactor: 1, 
+                polygonOffsetUnits: 1,
+                transparent: opacity < 1,
+                opacity: opacity
+            });
+        }
+
+        function createTextTexture(text, width, height, fontSize = 40) {
+            const canvas = document.createElement('canvas');
+            canvas.width = width * 100;
+            canvas.height = height * 100;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 10;
+            ctx.strokeRect(0, 0, canvas.width, canvas.height);
+            ctx.font = `bold ${fontSize}px Arial`;
+            ctx.fillStyle = 'black';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        function createSketchObject(geometry, color, x, y, z, rx=0, ry=0, rz=0, customMaterial=null) {
+            const group = new THREE.Group();
+            const material = customMaterial ? customMaterial : createFaceMaterial(color);
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+            group.add(mesh);
+
+            const edges = new THREE.EdgesGeometry(geometry);
+            const line = new THREE.LineSegments(edges, createEdgeMaterial());
+            group.add(line);
+
+            group.position.set(x, y, z);
+            group.rotation.set(rx, ry, rz);
+            scene.add(group);
+            return { group, mesh };
+        }
+
+        // --- BUILD THE BOOTH ---
+
+        // 1. Floor
+        const gridHelper = new THREE.GridHelper(20, 20, 0xdddddd, 0xeeeeee);
+        scene.add(gridHelper);
+
+        const floorGeo = new THREE.PlaneGeometry(6, 4);
+        const floorMat = new THREE.MeshBasicMaterial({ color: 0xe0e0ff, side: THREE.DoubleSide, transparent: true, opacity: 0.3 });
+        const floorMesh = new THREE.Mesh(floorGeo, floorMat);
+        floorMesh.rotation.x = -Math.PI / 2;
+        floorMesh.position.y = 0.01;
+        scene.add(floorMesh);
+        
+        // Dimensions
+        const dimTextGeo = new THREE.PlaneGeometry(1, 0.4);
+        const dimTextMat = new THREE.MeshBasicMaterial({ map: createTextTexture("6m Side", 2, 1, 50), transparent: true });
+        const dimText = new THREE.Mesh(dimTextGeo, dimTextMat);
+        dimText.rotation.x = -Math.PI/2;
+        dimText.position.set(0, 0.02, 2.2);
+        scene.add(dimText);
+
+        const dimTextGeo2 = new THREE.PlaneGeometry(1, 0.4);
+        const dimTextMat2 = new THREE.MeshBasicMaterial({ map: createTextTexture("4m Side", 2, 1, 50), transparent: true });
+        const dimText2 = new THREE.Mesh(dimTextGeo2, dimTextMat2);
+        dimText2.rotation.x = -Math.PI/2;
+        dimText2.rotation.z = -Math.PI/2;
+        dimText2.position.set(-3.2, 0.02, 0);
+        scene.add(dimText2);
+
+
+        // 2. Pillars
+        const pillarGeo = new THREE.BoxGeometry(0.1, 2.5, 0.1);
+        createSketchObject(pillarGeo, 0x999999, -2.95, 1.25, -1.95); 
+        createSketchObject(pillarGeo, 0x999999, 2.95, 1.25, -1.95); 
+        createSketchObject(pillarGeo, 0x999999, -2.95, 1.25, 1.95); 
+        createSketchObject(pillarGeo, 0x999999, 2.95, 1.25, 1.95); 
+
+
+        // 3. Top Banners (Applied Custom Texture)
+        
+        // Generate Textures
+        const tex6m = createBannerTexture(6, 0.3);
+        const tex4m = createBannerTexture(4, 0.3);
+        const whiteMat = createFaceMaterial(0xffffff);
+
+        // 6m Banner
+        const banner6mGeo = new THREE.BoxGeometry(6, 0.3, 0.05);
+        // Material Array for Box: Right, Left, Top, Bottom, Front(+Z), Back(-Z)
+        // Position: z = -1.95. We want Front (+Z) face to show texture (Inside Booth). 
+        // Optionally show on Back (-Z) too (Outside Booth).
+        const mat6m = [
+            whiteMat, whiteMat, whiteMat, whiteMat, 
+            new THREE.MeshBasicMaterial({ map: tex6m }), // Front (+Z)
+            new THREE.MeshBasicMaterial({ map: tex6m })  // Back (-Z)
+        ];
+        createSketchObject(banner6mGeo, null, 0, 2.35, -1.95, 0, 0, 0, mat6m);
+
+
+        // 4m Banner
+        const banner4mGeo = new THREE.BoxGeometry(0.05, 0.3, 4);
+        // Material Array: Right(+X), Left(-X), Top, Bottom, Front, Back
+        // Position: x = -2.95. We want Right (+X) face to show texture (Inside Booth).
+        const mat4m = [
+            new THREE.MeshBasicMaterial({ map: tex4m }), // Right (+X) - Inside
+            new THREE.MeshBasicMaterial({ map: tex4m }), // Left (-X) - Outside
+            whiteMat, whiteMat, whiteMat, whiteMat
+        ];
+        createSketchObject(banner4mGeo, null, -2.95, 2.35, 0, 0, 0, 0, mat4m);
+
+
+        // 4. Backwall Banner
+        const backwallGeo = new THREE.BoxGeometry(3.8, 1.6, 0.05);
+        const backwall = createSketchObject(backwallGeo, 0xffffee, 1, 0.8, -1.9);
+        backwall.mesh.material = new THREE.MeshBasicMaterial({ map: createTextTexture("백월 배너 (4m x 1.6m)", 4, 1.6, 60) });
+
+
+        // 5. Standing Banners
+        const standBannerGeo = new THREE.BoxGeometry(0.5, 1.5, 0.02);
+        const sb1 = createSketchObject(standBannerGeo, 0xffffff, -2.5, 0.75, 1.5, -0.2, 0.5, 0);
+        sb1.mesh.material = new THREE.MeshBasicMaterial({ map: createTextTexture("X-배너 1", 0.5, 1.5, 80) });
+        createSketchObject(new THREE.BoxGeometry(0.4, 0.05, 0.3), 0x333333, -2.5, 0.025, 1.6, 0, 0.5, 0);
+
+        const sb2 = createSketchObject(standBannerGeo, 0xffffff, 1.5, 0.75, 1.5, -0.2, -0.3, 0);
+        sb2.mesh.material = new THREE.MeshBasicMaterial({ map: createTextTexture("X-배너 2", 0.5, 1.5, 80) });
+        createSketchObject(new THREE.BoxGeometry(0.4, 0.05, 0.3), 0x333333, 1.5, 0.025, 1.6, 0, -0.3, 0);
+
+
+        // 6. Furniture (L-Shaped Desk Setup)
+        function createChair(x, y, z, rotationY) {
+            const grp = new THREE.Group();
+            const seat = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.1, 0.4), createFaceMaterial(0xeeeeee));
+            const back = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.5, 0.05), createFaceMaterial(0xeeeeee));
+            seat.position.y = 0.4;
+            back.position.set(0, 0.65, 0.2);
+            grp.add(seat, back);
+
+            const seatEdges = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(0.4, 0.1, 0.4)), createEdgeMaterial());
+            seatEdges.position.y = 0.4;
+            const backEdges = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(0.4, 0.5, 0.05)), createEdgeMaterial());
+            backEdges.position.set(0, 0.65, 0.2);
+            grp.add(seatEdges, backEdges);
+
+            grp.position.set(x, y, z);
+            grp.rotation.y = rotationY;
+            scene.add(grp);
+        }
+
+        // Desk 1
+        createSketchObject(new THREE.BoxGeometry(1.2, 0.75, 0.6), 0xffffff, -1.5, 0.375, -0.2); 
+        createChair(-1.5, 0, -0.8, 0);
+        createChair(-1.5, 0, 0.5, Math.PI);
+
+        // Desk 2
+        createSketchObject(new THREE.BoxGeometry(0.6, 0.75, 1.2), 0xffffff, -0.6, 0.375, -1.1); 
+        createChair(-1.2, 0, -1.1, Math.PI/2); 
+        createChair(0.1, 0, -1.1, -Math.PI/2); 
+
+        // Brochure Stand
+        createSketchObject(new THREE.BoxGeometry(0.4, 1.0, 0.3), 0xffffff, 2.8, 0.5, 0); 
+        
+        // Human Scale Reference
+        const humanGeo = new THREE.CylinderGeometry(0.2, 0.2, 1.7, 16);
+        const humanMat = new THREE.MeshBasicMaterial({ color: 0xaaaaff, transparent: true, opacity: 0.5 });
+        const human = new THREE.Mesh(humanGeo, humanMat);
+        human.position.set(0, 0.85, 0);
+        scene.add(human);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>

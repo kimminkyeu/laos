@@ -1,120 +1,83 @@
 // src/WallBanner.jsx
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 const WallBanner = () => {
-    // Helper to preload images, important for html2canvas
-    const useImagePreloader = (imagePaths) => {
-        const [imagesLoaded, setImagesLoaded] = useState(false);
-
-        useEffect(() => {
-            const loadImage = (src) => new Promise((resolve, reject) => {
-                const img = new Image();
-                img.onload = () => resolve(img);
-                img.onerror = reject;
-                img.src = src;
-            });
-
-            Promise.all(imagePaths.map(loadImage))
-                .then(() => setImagesLoaded(true))
-                .catch(err => console.error("Failed to preload images:", err));
-        }, [imagePaths]);
-
-        return imagesLoaded;
+    const bannerStyle = {
+        width: '1600px',
+        height: '640px',
+        aspectRatio: '400 / 160',
+        backgroundColor: 'white',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+        fontFamily: "'Roboto', 'Noto Sans KR', sans-serif",
+        overflow: 'hidden',
     };
 
-    const imagePaths = [
-        '/photos/서울대로고.png',
-        '/photos/라오스국립대 로고.png',
-        '/photos/1.선도대학 사업/세계 선도 대학.png',
-        '/photos/2.사업 승인까지의 과정/1-1. 1685367353542.jpg',
-        '/photos/2.사업 승인까지의 과정/1-2. FB_IMG_1716934774545.jpg', 
-        '/photos/3. 낙농실습목장 (현재)/1.jpg',
-        '/photos/3. 낙농실습목장 (현재)/2.jpg',
-        '/photos/3. 낙농실습목장 (현재)/3.jpg',
-        '/photos/4. 낙농실습목장 (미래)/5.jpg'
-    ];
-
-    const imagesLoaded = useImagePreloader(imagePaths);
-
-    if (!imagesLoaded) {
-        return (
-            <div className="banner-container flex items-center justify-center bg-gray-100 text-gray-700 font-bold text-2xl"
-                 style={{aspectRatio: '400 / 160', width: '100%', maxWidth: '1200px', height: 'auto'}}>
-                Loading Images...
-            </div>
-        );
-    }
-
     return (
-        <div id="wall-banner-content-for-export" className="banner-container flex flex-col relative overflow-hidden"
-             style={{aspectRatio: '400 / 160', width: '100%', height: 'auto'}}>
-            {/* Header */}
-            <header className="h-[10%] bg-[#0f265d] flex items-center px-[2vw] justify-between z-10 shrink-0">
-                <div className="flex items-center gap-[1vw] h-full py-[0.5vw]">
-                    <img src="/photos/서울대로고.png" className="h-[80%] object-contain" alt="SNU Logo" />
-                    <img src="/photos/라오스국립대 로고.png" className="h-[80%] object-contain" alt="NUOL Logo" />
+        <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '32px' }}>
+            <div style={bannerStyle}>
+                {/* Header */}
+                <div style={{ height: '10%', backgroundColor: '#0f265d', display: 'flex', alignItems: 'center', paddingLeft: '32px', paddingRight: '32px', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px', height: '100%', paddingTop: '8px', paddingBottom: '8px' }}>
+                        <img src="/photos/snu.png" style={{ height: '80%', objectFit: 'contain' }} alt="SNU Logo" />
+                        <img src="/photos/nuol.png" style={{ height: '80%', objectFit: 'contain' }} alt="NUOL Logo" />
+                    </div>
+                    <h1 style={{ color: 'white', fontWeight: 'bold', fontSize: '24px', letterSpacing: '-0.025em', textAlign: 'right', margin: 0 }}>
+                        Leading University for International Cooperation: Establishing Dairy Department at NUOL
+                    </h1>
                 </div>
-                <h1 className="text-white font-bold text-[1.6vw] tracking-tight text-right">국제협력선도대학 육성지원사업: 라오스 국립대 낙농학과 신설</h1>
-            </header>
 
-            {/* Main Content */}
-            <main className="flex-1 flex p-[1.2vw] gap-[1.2vw] relative min-h-0">
-                
-                {/* ZONE 1: Global Context (Blue Theme) */}
-                <section className="w-[20%] flex flex-col gap-[0.8vw] p-[1vw] bg-blue-50 border-t-4 border-blue-500 rounded-lg">
-                    <h2 className="font-bold text-gray-800 text-[1.1vw] leading-tight">1. 국제협력 선도대학</h2>
-                    <div className="relative flex-1 rounded-lg overflow-hidden min-h-0">
-                        <img src="/photos/1.선도대학 사업/세계 선도 대학.png" className="w-full h-full object-cover" alt="World map" />
-                        <div className="absolute inset-0 bg-black/10 flex flex-col items-center justify-center text-white text-center p-2">
-                            <div className="font-black text-[2.5vw] drop-shadow-md">18<span className="text-[1.5vw]">개국</span></div>
-                            <div className="font-black text-[2.5vw] drop-shadow-md">53<span className="text-[1.5vw]">개 사업단</span></div>
-                        </div>
-                    </div>
-                </section>
+                {/* Main Content */}
+                <div style={{ flex: 1, display: 'flex', padding: '20px', gap: '20px', backgroundColor: '#f9fafb' }}>
 
-                {/* ZONE 2: The Connection (Blue Theme) */}
-                <section className="w-[20%] flex flex-col gap-[0.8vw] p-[1vw] bg-blue-50 border-t-4 border-blue-500 rounded-lg">
-                    <h2 className="font-bold text-gray-800 text-[1.1vw] leading-tight">2. 서울대와 라오스의 연결</h2>
-                    <div className="flex-1 flex flex-col gap-[0.5vw] min-h-0">
-                        {/* MOU signing */}
-                        <div className="flex-1 rounded-lg overflow-hidden min-h-0">
-                            <img src="/photos/2.사업 승인까지의 과정/1-1. 1685367353542.jpg" className="w-full h-full object-cover" alt="MOU signing" />
-                        </div>
-                        {/* NUOL Campus */}
-                        <div className="flex-1 rounded-lg overflow-hidden min-h-0">
-                            <img src="/photos/2.사업 승인까지의 과정/1-2. FB_IMG_1716934774545.jpg" className="w-full h-full object-cover" alt="NUOL Campus" />
+                    {/* ZONE 1 */}
+                    <div style={{ width: '20%', display: 'flex', flexDirection: 'column', gap: '12px', padding: '16px', backgroundColor: '#eff6ff', borderTop: '4px solid #3b82f6', borderRadius: '8px' }}>
+                        <h2 style={{ fontWeight: 'bold', color: '#1f2937', fontSize: '18px', margin: 0 }}>1. International Cooperation</h2>
+                        <div style={{ flex: 1, backgroundColor: '#bfdbfe', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <div style={{ textAlign: 'center' }}>
+                                <div style={{ fontWeight: 900, fontSize: '48px', color: '#1e3a8a' }}>18</div>
+                                <div style={{ fontWeight: 900, fontSize: '48px', color: '#1e3a8a' }}>Countries</div>
+                            </div>
                         </div>
                     </div>
-                    <p className="text-gray-600 text-[0.7vw] leading-snug bg-gray-100 p-[0.5vw] rounded text-center">"라오스 현지의 수요: 낙농 인재 양성의 필요성 대두"</p>
-                </section>
 
-                {/* ZONE 3: The Process (Green/Teal Theme) */}
-                <section className="w-[20%] flex flex-col gap-[0.8vw] p-[1vw] bg-teal-50 border-t-4 border-teal-500 rounded-lg">
-                    <h2 className="font-bold text-gray-800 text-[1.1vw] leading-tight">3. 변화와 준비의 과정</h2>
-                    <div className="flex-1 flex flex-col gap-[0.5vw] min-h-0">
-                        <div className="flex-1 rounded-lg overflow-hidden min-h-0">
-                            <img src="/photos/3. 낙농실습목장 (현재)/1.jpg" className="w-full h-full object-cover" alt="Facility Remodeling" />
+                    {/* ZONE 2 */}
+                    <div style={{ width: '20%', display: 'flex', flexDirection: 'column', gap: '12px', padding: '16px', backgroundColor: '#eff6ff', borderTop: '4px solid #3b82f6', borderRadius: '8px' }}>
+                        <h2 style={{ fontWeight: 'bold', color: '#1f2937', fontSize: '18px', margin: 0 }}>2. SNU & Laos Connection</h2>
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            <div style={{ flex: 1, backgroundColor: '#d1d5db', borderRadius: '8px' }}></div>
+                            <div style={{ flex: 1, backgroundColor: '#d1d5db', borderRadius: '8px' }}></div>
                         </div>
-                        <div className="flex-1 rounded-lg overflow-hidden min-h-0">
-                            <img src="/photos/3. 낙농실습목장 (현재)/2.jpg" className="w-full h-full object-cover" alt="Equipment Setup" />
-                        </div>
-                        <div className="flex-1 rounded-lg overflow-hidden min-h-0">
-                            <img src="/photos/3. 낙농실습목장 (현재)/3.jpg" className="w-full h-full object-cover" alt="Curriculum Development" />
-                        </div>
+                        <p style={{ color: '#4b5563', fontSize: '12px', backgroundColor: '#f3f4f6', padding: '8px', borderRadius: '4px', textAlign: 'center', margin: 0 }}>
+                            "Local demand: Need for dairy professionals"
+                        </p>
                     </div>
-                </section>
 
-                {/* ZONE 4: The Result (Yellow/Orange Theme) */}
-                <section className="flex-1 flex flex-col gap-[0.8vw] p-[1vw] bg-yellow-50 border-4 border-yellow-400 rounded-lg shadow-lg">
-                    <h2 className="font-bold text-gray-900 text-[1.3vw] leading-tight">4. 라오스 국립대 낙농학과<br/>신설의 결실</h2>
-                    <div className="flex-1 rounded-lg shadow-inner overflow-hidden min-h-0">
-                        <img src="/photos/4. 낙농실습목장 (미래)/5.jpg" className="w-full h-full object-cover" alt="The result - new dairy department" />
+                    {/* ZONE 3 */}
+                    <div style={{ width: '20%', display: 'flex', flexDirection: 'column', gap: '12px', padding: '16px', backgroundColor: '#f0fdfa', borderTop: '4px solid #14b8a6', borderRadius: '8px' }}>
+                        <h2 style={{ fontWeight: 'bold', color: '#1f2937', fontSize: '18px', margin: 0 }}>3. Process of Change</h2>
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            <div style={{ flex: 1, backgroundColor: '#d1d5db', borderRadius: '8px' }}></div>
+                            <div style={{ flex: 1, backgroundColor: '#d1d5db', borderRadius: '8px' }}></div>
+                            <div style={{ flex: 1, backgroundColor: '#d1d5db', borderRadius: '8px' }}></div>
+                        </div>
                     </div>
-                    <div className="p-[0.5vw] rounded">
-                        <p className="text-[1.1vw] font-extrabold text-gray-800 text-center">"라오스 최초의 낙농 전문가, 여기서 시작됩니다."</p>
+
+                    {/* ZONE 4 */}
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px', padding: '16px', backgroundColor: '#fefce8', border: '4px solid #facc15', borderRadius: '8px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
+                        <h2 style={{ fontWeight: 'bold', color: '#111827', fontSize: '20px', margin: 0 }}>
+                            4. NUOL Dairy Department<br/>Establishment Success
+                        </h2>
+                        <div style={{ flex: 1, backgroundColor: '#d1d5db', borderRadius: '8px', boxShadow: 'inset 0 2px 4px 0 rgba(0,0,0,0.06)' }}></div>
+                        <div style={{ padding: '8px', borderRadius: '4px' }}>
+                            <p style={{ fontSize: '20px', fontWeight: 800, color: '#1f2937', textAlign: 'center', margin: 0 }}>
+                                "Laos' first dairy specialists start here."
+                            </p>
+                        </div>
                     </div>
-                </section>
-            </main>
+                </div>
+            </div>
         </div>
     );
 };
