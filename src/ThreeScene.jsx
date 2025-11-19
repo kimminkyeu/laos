@@ -168,14 +168,17 @@ const ThreeScene = () => {
         root.render(<WallBanner />);
 
         // Wait for fonts and images to load, then capture
-        const captureAndApplyTexture = () => {
+        const captureAndApplyTexture = (retryCount = 0) => {
             // Wait for fonts
             if (document.fonts && document.fonts.ready) {
                 document.fonts.ready.then(() => {
                     setTimeout(() => {
                         const element = bannerContainer.querySelector('div');
                         if (!element) {
-                            console.error("WallBanner element not found");
+                            if (retryCount < 3) {
+                                // Retry up to 3 times
+                                captureAndApplyTexture(retryCount + 1);
+                            }
                             return;
                         }
 
@@ -207,7 +210,7 @@ const ThreeScene = () => {
                                 console.error("Error rendering WallBanner:", err);
                             });
                         });
-                    }, 1000); // Increased delay for React 18
+                    }, 500 + (retryCount * 500)); // Increase delay with each retry
                 });
             }
         };
@@ -254,13 +257,15 @@ const ThreeScene = () => {
         root3.render(<StandBanner3 />);
 
         // Capture and apply StandBanner1 texture
-        const captureStandBanner1 = () => {
+        const captureStandBanner1 = (retryCount = 0) => {
             if (document.fonts && document.fonts.ready) {
                 document.fonts.ready.then(() => {
                     setTimeout(() => {
                         const element = banner1Container.querySelector('div');
                         if (!element) {
-                            console.error("StandBanner1 element not found");
+                            if (retryCount < 3) {
+                                captureStandBanner1(retryCount + 1);
+                            }
                             return;
                         }
 
@@ -291,19 +296,21 @@ const ThreeScene = () => {
                                 console.error("Error rendering StandBanner1:", err);
                             });
                         });
-                    }, 1000);
+                    }, 500 + (retryCount * 500));
                 });
             }
         };
 
         // Capture and apply StandBanner3 texture
-        const captureStandBanner3 = () => {
+        const captureStandBanner3 = (retryCount = 0) => {
             if (document.fonts && document.fonts.ready) {
                 document.fonts.ready.then(() => {
                     setTimeout(() => {
                         const element = banner3Container.querySelector('div');
                         if (!element) {
-                            console.error("StandBanner3 element not found");
+                            if (retryCount < 3) {
+                                captureStandBanner3(retryCount + 1);
+                            }
                             return;
                         }
 
@@ -334,7 +341,7 @@ const ThreeScene = () => {
                                 console.error("Error rendering StandBanner3:", err);
                             });
                         });
-                    }, 1000);
+                    }, 500 + (retryCount * 500));
                 });
             }
         };
