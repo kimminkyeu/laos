@@ -19,8 +19,8 @@ const ThreeScene = () => {
         
         // 1. Scene Setup
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xffffff);
-        scene.fog = new THREE.Fog(0xffffff, 10, 50);
+        scene.background = new THREE.Color(0x0a0a0a);
+        scene.fog = new THREE.Fog(0x0a0a0a, 10, 50);
 
         const camera = new THREE.PerspectiveCamera(45, currentMount.clientWidth / currentMount.clientHeight, 0.1, 100);
         camera.position.set(8, 6, 8);
@@ -134,7 +134,17 @@ const ThreeScene = () => {
         }
         
         // --- Booth Construction ---
-        const gridHelper = new THREE.GridHelper(20, 20, 0xdddddd, 0xeeeeee);
+        // Floor plane
+        const floorGeo = new THREE.PlaneGeometry(20, 20);
+        const floorMat = new THREE.MeshLambertMaterial({ color: 0x2a2a2a, side: THREE.DoubleSide });
+        const floor = new THREE.Mesh(floorGeo, floorMat);
+        floor.rotation.x = -Math.PI / 2;
+        floor.receiveShadow = true;
+        scene.add(floor);
+
+        // Optional: Add subtle grid lines on top
+        const gridHelper = new THREE.GridHelper(20, 20, 0x404040, 0x333333);
+        gridHelper.position.y = 0.01; // Slightly above floor to prevent z-fighting
         scene.add(gridHelper);
 
         const pillarGeo = new THREE.BoxGeometry(0.1, 2.5, 0.1);
