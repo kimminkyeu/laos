@@ -13,6 +13,9 @@ const WallBanner = () => {
         overflow: 'hidden',
     };
 
+    // Consistent spacing
+    const ZONE_PADDING = 40; // Consistent left-right padding for all zones
+
     // Layout calculations (matching HTML example)
     const headerHeight = 160; // 10% of 1600px
     const footerHeight = 128; // 8% of 1600px
@@ -69,7 +72,7 @@ const WallBanner = () => {
                         width: '600px',
                         backgroundColor: '#eff6ff',
                         position: 'relative',
-                        padding: '20px'
+                        padding: `0 ${ZONE_PADDING}px`
                     }}>
                         {/* Section Number */}
                         <div style={{
@@ -98,8 +101,8 @@ const WallBanner = () => {
                         <div style={{
                             position: 'absolute',
                             top: `${visualBandTop}px`,
-                            left: '20px',
-                            right: '20px',
+                            left: `${ZONE_PADDING}px`,
+                            right: `${ZONE_PADDING}px`,
                             height: `${visualBandHeight}px`,
                             backgroundColor: '#bfdbfe',
                             borderRadius: '8px',
@@ -138,8 +141,8 @@ const WallBanner = () => {
                         <div style={{
                             position: 'absolute',
                             top: `${textBandTop}px`,
-                            left: '20px',
-                            right: '20px',
+                            left: `${ZONE_PADDING}px`,
+                            right: `${ZONE_PADDING}px`,
                             color: '#374151',
                             fontSize: '16px',
                             lineHeight: '1.6'
@@ -155,7 +158,7 @@ const WallBanner = () => {
                         width: '1000px',
                         backgroundColor: '#f0f9ff',
                         position: 'relative',
-                        padding: '20px',
+                        padding: `0 ${ZONE_PADDING}px`,
                         borderLeft: '2px solid #dbeafe'
                     }}>
                         {/* Section Number */}
@@ -185,8 +188,8 @@ const WallBanner = () => {
                         <div style={{
                             position: 'absolute',
                             top: `${visualBandTop}px`,
-                            left: '20px',
-                            right: '20px',
+                            left: `${ZONE_PADDING}px`,
+                            right: `${ZONE_PADDING}px`,
                             height: `${visualBandHeight}px`,
                             display: 'flex',
                             gap: '20px'
@@ -253,8 +256,8 @@ const WallBanner = () => {
                         <div style={{
                             position: 'absolute',
                             top: `${textBandTop}px`,
-                            left: '20px',
-                            right: '20px',
+                            left: `${ZONE_PADDING}px`,
+                            right: `${ZONE_PADDING}px`,
                             color: '#374151',
                             fontSize: '16px',
                             lineHeight: '1.6'
@@ -273,7 +276,7 @@ const WallBanner = () => {
                         width: '1400px',
                         backgroundColor: '#f0fdfa',
                         position: 'relative',
-                        padding: '20px',
+                        padding: `0 ${ZONE_PADDING}px`,
                         borderLeft: '2px solid #ccfbf1'
                     }}>
                         {/* Section Number */}
@@ -303,8 +306,8 @@ const WallBanner = () => {
                         <div style={{
                             position: 'absolute',
                             top: `${visualBandTop}px`,
-                            left: '20px',
-                            right: '20px',
+                            left: `${ZONE_PADDING}px`,
+                            right: `${ZONE_PADDING}px`,
                             height: `${visualBandHeight}px`,
                             display: 'flex',
                             alignItems: 'center',
@@ -420,8 +423,8 @@ const WallBanner = () => {
                         <div style={{
                             position: 'absolute',
                             top: `${textBandTop}px`,
-                            left: '20px',
-                            right: '20px',
+                            left: `${ZONE_PADDING}px`,
+                            right: `${ZONE_PADDING}px`,
                             color: '#374151',
                             fontSize: '16px',
                             lineHeight: '1.6'
@@ -437,7 +440,7 @@ const WallBanner = () => {
                         width: '1000px',
                         backgroundColor: '#fffbeb',
                         position: 'relative',
-                        padding: '20px',
+                        padding: `0 ${ZONE_PADDING}px`,
                         borderLeft: '2px solid #fef3c7'
                     }}>
                         {/* Section Number */}
@@ -467,8 +470,8 @@ const WallBanner = () => {
                         <div style={{
                             position: 'absolute',
                             top: `${visualBandTop}px`,
-                            left: '20px',
-                            right: '20px',
+                            left: `${ZONE_PADDING}px`,
+                            right: `${ZONE_PADDING}px`,
                             height: `${visualBandHeight}px`,
                             backgroundColor: '#fcd34d',
                             borderRadius: '8px',
@@ -532,8 +535,8 @@ const WallBanner = () => {
                         <div style={{
                             position: 'absolute',
                             top: `${textBandTop}px`,
-                            left: '20px',
-                            right: '20px',
+                            left: `${ZONE_PADDING}px`,
+                            right: `${ZONE_PADDING}px`,
                             color: '#374151',
                             fontSize: '16px',
                             lineHeight: '1.6'
