@@ -3,10 +3,9 @@ import React from 'react';
 
 const WallBanner = () => {
     const bannerStyle = {
-        width: '1600px',
-        height: '640px',
-        aspectRatio: '400 / 160',
-        backgroundColor: 'white',
+        width: '4000px',
+        height: '1600px',
+        backgroundColor: '#f8f9fa',
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
@@ -14,71 +13,538 @@ const WallBanner = () => {
         overflow: 'hidden',
     };
 
+    // Layout calculations (matching HTML example)
+    const headerHeight = 160; // 10% of 1600px
+    const footerHeight = 128; // 8% of 1600px
+    const contentTop = headerHeight + 30;
+    const contentBottom = 1600 - footerHeight - 20;
+    const contentHeight = contentBottom - contentTop;
+
+    const visualBandTop = contentTop;
+    const visualBandHeight = contentHeight * 0.65; // 65% for images
+    const textBandTop = visualBandTop + visualBandHeight + 15;
+
     return (
-        <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '32px' }}>
             <div style={bannerStyle}>
-                {/* Header */}
-                <div style={{ height: '10%', backgroundColor: '#0f265d', display: 'flex', alignItems: 'center', paddingLeft: '32px', paddingRight: '32px', justifyContent: 'space-between' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px', height: '100%', paddingTop: '8px', paddingBottom: '8px' }}>
-                        <img src="/photos/snu.png" style={{ height: '80%', objectFit: 'contain' }} alt="SNU Logo" />
-                        <img src="/photos/nuol.png" style={{ height: '80%', objectFit: 'contain' }} alt="NUOL Logo" />
+                {/* Header Bar */}
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: `${headerHeight}px`,
+                    backgroundColor: '#0f265d',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '0 60px',
+                    zIndex: 10
+                }}>
+                    {/* Left: Logos */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '24px', height: '70px' }}>
+                        <img src="/photos/snu.png" style={{ height: '100%', objectFit: 'contain' }} alt="SNU Logo" />
+                        <img src="/photos/nuol.png" style={{ height: '100%', objectFit: 'contain' }} alt="NUOL Logo" />
                     </div>
-                    <h1 style={{ color: 'white', fontWeight: 'bold', fontSize: '24px', letterSpacing: '-0.025em', textAlign: 'right', margin: 0 }}>
-                        Leading University for International Cooperation: Establishing Dairy Department at NUOL
-                    </h1>
+
+                    {/* Right: Section Navigation */}
+                    <div style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
+                        <div style={{ color: 'white', fontSize: '14px', fontWeight: '600', letterSpacing: '0.5px' }}>01 GLOBAL</div>
+                        <div style={{ color: 'white', fontSize: '14px', fontWeight: '600', letterSpacing: '0.5px' }}>02 CONNECTION</div>
+                        <div style={{ color: 'white', fontSize: '14px', fontWeight: '600', letterSpacing: '0.5px' }}>03 PROCESS</div>
+                        <div style={{ color: 'white', fontSize: '14px', fontWeight: '600', letterSpacing: '0.5px' }}>04 RESULT</div>
+                    </div>
                 </div>
 
-                {/* Main Content */}
-                <div style={{ flex: 1, display: 'flex', padding: '20px', gap: '20px', backgroundColor: '#f9fafb' }}>
+                {/* Main Content Area */}
+                <div style={{
+                    position: 'absolute',
+                    top: `${headerHeight}px`,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    display: 'flex'
+                }}>
+                    {/* ZONE 1: Global Context (15% = 600px) */}
+                    <div style={{
+                        width: '600px',
+                        backgroundColor: '#eff6ff',
+                        position: 'relative',
+                        padding: '20px'
+                    }}>
+                        {/* Section Number */}
+                        <div style={{
+                            position: 'absolute',
+                            top: '20px',
+                            left: '20px',
+                            fontSize: '48px',
+                            fontWeight: '900',
+                            color: '#1e3a8a',
+                            opacity: 0.2
+                        }}>01</div>
 
-                    {/* ZONE 1 */}
-                    <div style={{ width: '20%', display: 'flex', flexDirection: 'column', gap: '12px', padding: '16px', backgroundColor: '#eff6ff', borderTop: '4px solid #3b82f6', borderRadius: '8px' }}>
-                        <h2 style={{ fontWeight: 'bold', color: '#1f2937', fontSize: '18px', margin: 0 }}>1. International Cooperation</h2>
-                        <div style={{ flex: 1, backgroundColor: '#bfdbfe', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        {/* Title */}
+                        <h2 style={{
+                            marginTop: '80px',
+                            fontSize: '32px',
+                            fontWeight: 'bold',
+                            color: '#1f3578',
+                            marginBottom: '0',
+                            lineHeight: '1.2'
+                        }}>
+                            International<br/>Cooperation
+                        </h2>
+
+                        {/* Visual Band Area */}
+                        <div style={{
+                            position: 'absolute',
+                            top: `${visualBandTop}px`,
+                            left: '20px',
+                            right: '20px',
+                            height: `${visualBandHeight}px`,
+                            backgroundColor: '#bfdbfe',
+                            borderRadius: '8px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '40px'
+                        }}>
+                            {/* World Map Placeholder */}
+                            <div style={{
+                                width: '100%',
+                                height: '60%',
+                                backgroundColor: '#93c5fd',
+                                borderRadius: '8px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                marginBottom: '40px'
+                            }}>
+                                <div style={{ textAlign: 'center', color: '#1e3a8a', fontSize: '18px', fontWeight: '600' }}>
+                                    World Map<br/>Korea → 18 Countries
+                                </div>
+                            </div>
+
+                            {/* Statistics */}
                             <div style={{ textAlign: 'center' }}>
-                                <div style={{ fontWeight: 900, fontSize: '48px', color: '#1e3a8a' }}>18</div>
-                                <div style={{ fontWeight: 900, fontSize: '48px', color: '#1e3a8a' }}>Countries</div>
+                                <div style={{ fontSize: '96px', fontWeight: '900', color: '#1e3a8a', lineHeight: '1' }}>18</div>
+                                <div style={{ fontSize: '28px', fontWeight: '700', color: '#1e3a8a', marginTop: '8px' }}>Countries</div>
+                                <div style={{ fontSize: '64px', fontWeight: '900', color: '#1e3a8a', marginTop: '20px', lineHeight: '1' }}>53</div>
+                                <div style={{ fontSize: '28px', fontWeight: '700', color: '#1e3a8a', marginTop: '8px' }}>Project Teams</div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* ZONE 2 */}
-                    <div style={{ width: '20%', display: 'flex', flexDirection: 'column', gap: '12px', padding: '16px', backgroundColor: '#eff6ff', borderTop: '4px solid #3b82f6', borderRadius: '8px' }}>
-                        <h2 style={{ fontWeight: 'bold', color: '#1f2937', fontSize: '18px', margin: 0 }}>2. SNU & Laos Connection</h2>
-                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                            <div style={{ flex: 1, backgroundColor: '#d1d5db', borderRadius: '8px' }}></div>
-                            <div style={{ flex: 1, backgroundColor: '#d1d5db', borderRadius: '8px' }}></div>
-                        </div>
-                        <p style={{ color: '#4b5563', fontSize: '12px', backgroundColor: '#f3f4f6', padding: '8px', borderRadius: '4px', textAlign: 'center', margin: 0 }}>
-                            "Local demand: Need for dairy professionals"
-                        </p>
-                    </div>
-
-                    {/* ZONE 3 */}
-                    <div style={{ width: '20%', display: 'flex', flexDirection: 'column', gap: '12px', padding: '16px', backgroundColor: '#f0fdfa', borderTop: '4px solid #14b8a6', borderRadius: '8px' }}>
-                        <h2 style={{ fontWeight: 'bold', color: '#1f2937', fontSize: '18px', margin: 0 }}>3. Process of Change</h2>
-                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                            <div style={{ flex: 1, backgroundColor: '#d1d5db', borderRadius: '8px' }}></div>
-                            <div style={{ flex: 1, backgroundColor: '#d1d5db', borderRadius: '8px' }}></div>
-                            <div style={{ flex: 1, backgroundColor: '#d1d5db', borderRadius: '8px' }}></div>
+                        {/* Text Area */}
+                        <div style={{
+                            position: 'absolute',
+                            top: `${textBandTop}px`,
+                            left: '20px',
+                            right: '20px',
+                            color: '#374151',
+                            fontSize: '16px',
+                            lineHeight: '1.6'
+                        }}>
+                            <p style={{ margin: 0, fontWeight: '600' }}>
+                                Leading University Projects for International Development Cooperation
+                            </p>
                         </div>
                     </div>
 
-                    {/* ZONE 4 */}
-                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px', padding: '16px', backgroundColor: '#fefce8', border: '4px solid #facc15', borderRadius: '8px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
-                        <h2 style={{ fontWeight: 'bold', color: '#111827', fontSize: '20px', margin: 0 }}>
-                            4. NUOL Dairy Department<br/>Establishment Success
+                    {/* ZONE 2: The Connection (25% = 1000px) */}
+                    <div style={{
+                        width: '1000px',
+                        backgroundColor: '#f0f9ff',
+                        position: 'relative',
+                        padding: '20px',
+                        borderLeft: '2px solid #dbeafe'
+                    }}>
+                        {/* Section Number */}
+                        <div style={{
+                            position: 'absolute',
+                            top: '20px',
+                            left: '20px',
+                            fontSize: '48px',
+                            fontWeight: '900',
+                            color: '#1e40af',
+                            opacity: 0.2
+                        }}>02</div>
+
+                        {/* Title */}
+                        <h2 style={{
+                            marginTop: '80px',
+                            fontSize: '32px',
+                            fontWeight: 'bold',
+                            color: '#1f3578',
+                            marginBottom: '0',
+                            lineHeight: '1.2'
+                        }}>
+                            SNU-NUOL<br/>Partnership
                         </h2>
-                        <div style={{ flex: 1, backgroundColor: '#d1d5db', borderRadius: '8px', boxShadow: 'inset 0 2px 4px 0 rgba(0,0,0,0.06)' }}></div>
-                        <div style={{ padding: '8px', borderRadius: '4px' }}>
-                            <p style={{ fontSize: '20px', fontWeight: 800, color: '#1f2937', textAlign: 'center', margin: 0 }}>
-                                "Laos' first dairy specialists start here."
+
+                        {/* Visual Band Area - 2 columns */}
+                        <div style={{
+                            position: 'absolute',
+                            top: `${visualBandTop}px`,
+                            left: '20px',
+                            right: '20px',
+                            height: `${visualBandHeight}px`,
+                            display: 'flex',
+                            gap: '20px'
+                        }}>
+                            {/* Left: Main Photo (60%) */}
+                            <div style={{
+                                flex: '0 0 60%',
+                                backgroundColor: '#93c5fd',
+                                borderRadius: '8px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '18px',
+                                fontWeight: '600',
+                                color: '#1e3a8a'
+                            }}>
+                                MOU Signing<br/>Main Photo
+                            </div>
+
+                            {/* Right: 3 Sub Photos stacked (40%) */}
+                            <div style={{
+                                flex: '0 0 calc(40% - 20px)',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '20px'
+                            }}>
+                                <div style={{
+                                    flex: 1,
+                                    backgroundColor: '#bfdbfe',
+                                    borderRadius: '8px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    color: '#1e3a8a'
+                                }}>Campus</div>
+                                <div style={{
+                                    flex: 1,
+                                    backgroundColor: '#bfdbfe',
+                                    borderRadius: '8px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    color: '#1e3a8a'
+                                }}>Meeting</div>
+                                <div style={{
+                                    flex: 1,
+                                    backgroundColor: '#bfdbfe',
+                                    borderRadius: '8px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    color: '#1e3a8a'
+                                }}>Team</div>
+                            </div>
+                        </div>
+
+                        {/* Text Area */}
+                        <div style={{
+                            position: 'absolute',
+                            top: `${textBandTop}px`,
+                            left: '20px',
+                            right: '20px',
+                            color: '#374151',
+                            fontSize: '16px',
+                            lineHeight: '1.6'
+                        }}>
+                            <p style={{ margin: 0, fontWeight: '600', color: '#1f3578', marginBottom: '8px' }}>
+                                "Responding to local demand for dairy professionals"
+                            </p>
+                            <p style={{ margin: 0, fontSize: '14px' }}>
+                                Partnership established to develop Laos' first dairy science program
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* ZONE 3: The Process (35% = 1400px) */}
+                    <div style={{
+                        width: '1400px',
+                        backgroundColor: '#f0fdfa',
+                        position: 'relative',
+                        padding: '20px',
+                        borderLeft: '2px solid #ccfbf1'
+                    }}>
+                        {/* Section Number */}
+                        <div style={{
+                            position: 'absolute',
+                            top: '20px',
+                            left: '20px',
+                            fontSize: '48px',
+                            fontWeight: '900',
+                            color: '#0f766e',
+                            opacity: 0.2
+                        }}>03</div>
+
+                        {/* Title */}
+                        <h2 style={{
+                            marginTop: '80px',
+                            fontSize: '32px',
+                            fontWeight: 'bold',
+                            color: '#0f766e',
+                            marginBottom: '0',
+                            lineHeight: '1.2'
+                        }}>
+                            Transformation<br/>Process
+                        </h2>
+
+                        {/* Visual Band Area - 4 Cards with Arrows */}
+                        <div style={{
+                            position: 'absolute',
+                            top: `${visualBandTop}px`,
+                            left: '20px',
+                            right: '20px',
+                            height: `${visualBandHeight}px`,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px'
+                        }}>
+                            {/* Card 1 */}
+                            <div style={{ flex: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
+                                <div style={{
+                                    flex: 1,
+                                    backgroundColor: '#99f6e4',
+                                    borderRadius: '8px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    color: '#0f766e',
+                                    marginBottom: '12px'
+                                }}>Facility<br/>Improvement</div>
+                                <div style={{
+                                    padding: '12px',
+                                    backgroundColor: 'white',
+                                    borderRadius: '6px',
+                                    fontSize: '12px',
+                                    color: '#374151',
+                                    textAlign: 'center'
+                                }}>Infrastructure upgrade</div>
+                            </div>
+
+                            {/* Arrow */}
+                            <div style={{ fontSize: '32px', color: '#14b8a6', fontWeight: 'bold' }}>▶</div>
+
+                            {/* Card 2 */}
+                            <div style={{ flex: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
+                                <div style={{
+                                    flex: 1,
+                                    backgroundColor: '#99f6e4',
+                                    borderRadius: '8px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    color: '#0f766e',
+                                    marginBottom: '12px'
+                                }}>Equipment<br/>Introduction</div>
+                                <div style={{
+                                    padding: '12px',
+                                    backgroundColor: 'white',
+                                    borderRadius: '6px',
+                                    fontSize: '12px',
+                                    color: '#374151',
+                                    textAlign: 'center'
+                                }}>Modern dairy equipment</div>
+                            </div>
+
+                            {/* Arrow */}
+                            <div style={{ fontSize: '32px', color: '#14b8a6', fontWeight: 'bold' }}>▶</div>
+
+                            {/* Card 3 */}
+                            <div style={{ flex: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
+                                <div style={{
+                                    flex: 1,
+                                    backgroundColor: '#99f6e4',
+                                    borderRadius: '8px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    color: '#0f766e',
+                                    marginBottom: '12px'
+                                }}>Faculty<br/>Development</div>
+                                <div style={{
+                                    padding: '12px',
+                                    backgroundColor: 'white',
+                                    borderRadius: '6px',
+                                    fontSize: '12px',
+                                    color: '#374151',
+                                    textAlign: 'center'
+                                }}>Capacity building</div>
+                            </div>
+
+                            {/* Arrow */}
+                            <div style={{ fontSize: '32px', color: '#14b8a6', fontWeight: 'bold' }}>▶</div>
+
+                            {/* Card 4 */}
+                            <div style={{ flex: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
+                                <div style={{
+                                    flex: 1,
+                                    backgroundColor: '#99f6e4',
+                                    borderRadius: '8px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    color: '#0f766e',
+                                    marginBottom: '12px'
+                                }}>Curriculum<br/>Design</div>
+                                <div style={{
+                                    padding: '12px',
+                                    backgroundColor: 'white',
+                                    borderRadius: '6px',
+                                    fontSize: '12px',
+                                    color: '#374151',
+                                    textAlign: 'center'
+                                }}>Program establishment</div>
+                            </div>
+                        </div>
+
+                        {/* Text Area */}
+                        <div style={{
+                            position: 'absolute',
+                            top: `${textBandTop}px`,
+                            left: '20px',
+                            right: '20px',
+                            color: '#374151',
+                            fontSize: '16px',
+                            lineHeight: '1.6'
+                        }}>
+                            <p style={{ margin: 0, fontWeight: '600' }}>
+                                Systematic approach to building sustainable dairy science education
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* ZONE 4: The Result (25% = 1000px) */}
+                    <div style={{
+                        width: '1000px',
+                        backgroundColor: '#fffbeb',
+                        position: 'relative',
+                        padding: '20px',
+                        borderLeft: '2px solid #fef3c7'
+                    }}>
+                        {/* Section Number */}
+                        <div style={{
+                            position: 'absolute',
+                            top: '20px',
+                            left: '20px',
+                            fontSize: '48px',
+                            fontWeight: '900',
+                            color: '#d97706',
+                            opacity: 0.2
+                        }}>04</div>
+
+                        {/* Title */}
+                        <h2 style={{
+                            marginTop: '80px',
+                            fontSize: '32px',
+                            fontWeight: 'bold',
+                            color: '#d97706',
+                            marginBottom: '0',
+                            lineHeight: '1.2'
+                        }}>
+                            Achievement<br/>& Future
+                        </h2>
+
+                        {/* Visual Band Area - Hero Image with Overlay */}
+                        <div style={{
+                            position: 'absolute',
+                            top: `${visualBandTop}px`,
+                            left: '20px',
+                            right: '20px',
+                            height: `${visualBandHeight}px`,
+                            backgroundColor: '#fcd34d',
+                            borderRadius: '8px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            overflow: 'hidden'
+                        }}>
+                            {/* Photo Placeholder */}
+                            <div style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '18px',
+                                fontWeight: '600',
+                                color: '#92400e'
+                            }}>
+                                Ceremony Photo<br/>Students & Faculty
+                            </div>
+
+                            {/* Overlay Box */}
+                            <div style={{
+                                position: 'absolute',
+                                bottom: '60px',
+                                left: '60px',
+                                right: '60px',
+                                padding: '40px',
+                                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                                borderRadius: '12px',
+                                boxShadow: '0 20px 25px -5px rgba(0,0,0,0.3)',
+                                border: '3px solid #f59e0b'
+                            }}>
+                                <h3 style={{
+                                    margin: 0,
+                                    fontSize: '36px',
+                                    fontWeight: '900',
+                                    color: '#d97706',
+                                    lineHeight: '1.3',
+                                    textAlign: 'center'
+                                }}>
+                                    Laos' First Dairy Science<br/>Department Established
+                                </h3>
+                                <p style={{
+                                    margin: '16px 0 0 0',
+                                    fontSize: '18px',
+                                    fontWeight: '600',
+                                    color: '#92400e',
+                                    textAlign: 'center'
+                                }}>
+                                    Training the next generation of dairy specialists
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Text Area */}
+                        <div style={{
+                            position: 'absolute',
+                            top: `${textBandTop}px`,
+                            left: '20px',
+                            right: '20px',
+                            color: '#374151',
+                            fontSize: '16px',
+                            lineHeight: '1.6'
+                        }}>
+                            <p style={{ margin: 0, fontWeight: '600', color: '#d97706' }}>
+                                A new chapter in agricultural education and international cooperation
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     );
 };
 
