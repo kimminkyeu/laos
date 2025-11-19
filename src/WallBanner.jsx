@@ -483,20 +483,45 @@ const WallBanner = () => {
                             <div style={{ flex: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
                                 <div style={{
                                     flex: 1,
-                                    backgroundColor: '#99f6e4',
                                     borderRadius: '8px',
                                     overflow: 'hidden',
-                                    marginBottom: '12px'
+                                    marginBottom: '12px',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '8px'
                                 }}>
-                                    <img
-                                        src="/photos/03-present/FB_IMG_1716934774544.jpg"
-                                        style={{
-                                            width: '100%',
-                                            height: '100%',
-                                            objectFit: 'cover'
-                                        }}
-                                        alt="Step 2"
-                                    />
+                                    <div style={{
+                                        flex: 1,
+                                        backgroundColor: '#99f6e4',
+                                        borderRadius: '8px',
+                                        overflow: 'hidden'
+                                    }}>
+                                        <img
+                                            src="/photos/03-present/3.jpg"
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                objectFit: 'cover'
+                                            }}
+                                            alt="Step 2 - Before"
+                                        />
+                                    </div>
+                                    <div style={{
+                                        flex: 1,
+                                        backgroundColor: '#99f6e4',
+                                        borderRadius: '8px',
+                                        overflow: 'hidden'
+                                    }}>
+                                        <img
+                                            src="/photos/03-present/p3.png"
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                objectFit: 'cover'
+                                            }}
+                                            alt="Step 2 - Diagram"
+                                        />
+                                    </div>
                                 </div>
                                 <div style={{
                                     padding: '12px',
@@ -547,20 +572,45 @@ const WallBanner = () => {
                             <div style={{ flex: 1, height: '100%', display: 'flex', flexDirection: 'column' }}>
                                 <div style={{
                                     flex: 1,
-                                    backgroundColor: '#99f6e4',
                                     borderRadius: '8px',
                                     overflow: 'hidden',
-                                    marginBottom: '12px'
+                                    marginBottom: '12px',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '8px'
                                 }}>
-                                    <img
-                                        src="/photos/03-future/5.jpg"
-                                        style={{
-                                            width: '100%',
-                                            height: '100%',
-                                            objectFit: 'cover'
-                                        }}
-                                        alt="Step 4"
-                                    />
+                                    <div style={{
+                                        flex: 1,
+                                        backgroundColor: '#99f6e4',
+                                        borderRadius: '8px',
+                                        overflow: 'hidden'
+                                    }}>
+                                        <img
+                                            src="/photos/03-future/1.jpg"
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                objectFit: 'cover'
+                                            }}
+                                            alt="Step 4 - Top"
+                                        />
+                                    </div>
+                                    <div style={{
+                                        flex: 1,
+                                        backgroundColor: '#99f6e4',
+                                        borderRadius: '8px',
+                                        overflow: 'hidden'
+                                    }}>
+                                        <img
+                                            src="/photos/03-future/5.jpg"
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                objectFit: 'cover'
+                                            }}
+                                            alt="Step 4 - Bottom"
+                                        />
+                                    </div>
                                 </div>
                                 <div style={{
                                     padding: '12px',
