@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall Banner Preview</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: 'Pretendard', sans-serif;
+        }
+        canvas {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 100%;
+            height: auto;
+        }
+        @font-face {
+            font-family: 'Pretendard';
+            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Pretendard';
+            src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="wall-banner-canvas"></canvas>
+    <script>
+        function drawWallBanner(canvas) {
+            const widthM = 3.8;
+            const heightM = 1.6;
+            const scaleFactor = 300; // Match resolution from 3d.html
+            canvas.width = widthM * scaleFactor;
+            canvas.height = heightM * scaleFactor;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+
+            // Helper to load an image
+            const loadImage = (src) => new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = (err) => { console.error(`Failed to load ${src}`); reject(err); };
+                img.src = src;
+            });
+            
+            // Helper for text wrapping
+            function wrapText(context, text, x, y, maxWidth, lineHeight) {
+                const words = text.split(' ');
+                let line = '';
+                for(let n = 0; n < words.length; n++) {
+                    const testLine = line + words[n] + ' ';
+                    const metrics = context.measureText(testLine);
+                    const testWidth = metrics.width;
+                    if (testWidth > maxWidth && n > 0) {
+                        context.fillText(line, x, y);
+                        line = words[n] + ' ';
+                        y += lineHeight;
+                    } else {
+                        line = testLine;
+                    }
+                }
+                context.fillText(line, x, y);
+            }
+
+            (async () => {
+                try {
+                    // --- Preload all images ---
+                    const [
+                        snuLogo, nuolLogo,
+                        img1, img2,
+                        img3_1, img3_2, img3_3,
+                        img4
+                    ] = await Promise.all([
+                        loadImage('./photos/서울대로고.png'),
+                        loadImage('./photos/라오스국립대 로고.png'),
+                        loadImage('./photos/1.선도대학 사업/세계 선도 대학.png'),
+                        loadImage('./photos/2.사업 승인까지의 과정/1.png'),
+                        loadImage('./photos/3. 낙농실습목장 (현재)/1.jpg'),
+                        loadImage('./photos/3. 낙농실습목장 (현재)/2.jpg'),
+                        loadImage('./photos/3. 낙농실습목장 (현재)/3.jpg'),
+                        loadImage('./photos/4. 낙농실습목장 (미래)/1.jpg')
+                    ]);
+
+                    // --- Start Drawing ---
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(0, 0, w, h);
+
+                    // 1. Header
+                    const headerH = h * 0.1;
+                    ctx.fillStyle = '#0f265d';
+                    ctx.fillRect(0, 0, w, headerH);
+                    
+                    const logoH = headerH * 0.7;
+                    const snuW = snuLogo.width * (logoH / snuLogo.height);
+                    const nuolW = nuolLogo.width * (logoH / nuolLogo.height);
+                    const headerPadding = w * 0.025;
+                    ctx.drawImage(snuLogo, headerPadding, (headerH - logoH) / 2, snuW, logoH);
+                    ctx.drawImage(nuolLogo, headerPadding + snuW + 15, (headerH - logoH) / 2, nuolW, logoH);
+
+                    ctx.fillStyle = 'white';
+                    ctx.font = `bold ${h * 0.035}px Pretendard, sans-serif`;
+                    ctx.textAlign = 'right';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText("국제협력선도대학 육성지원사업: 라오스 국립대 낙농학과 신설 프로젝트", w - headerPadding, headerH / 2);
+
+                    // 2. Main Content Area
+                    ctx.textAlign = 'left';
+                    ctx.textBaseline = 'top';
+                    const mainPadding = w * 0.015;
+                    const gap = w * 0.015;
+                    const contentW = w - (mainPadding * 2);
+                    const colW = contentW * 0.22;
+                    const col4W = contentW - (colW * 3) - (gap * 3);
+                    const titleH = h * 0.12;
+                    const descH = h * 0.18;
+                    const imgH = h - headerH - titleH - descH - (mainPadding * 3);
+
+                    // --- Column 1 ---
+                    const col1X = mainPadding;
+                    ctx.fillStyle = '#374151';
+                    ctx.font = `bold ${h * 0.03}px Pretendard, sans-serif`;
+                    wrapText(ctx, "1. 국제협력 선도대학 육성·지원 사업", col1X, headerH + mainPadding, colW, h * 0.04);
+                    ctx.drawImage(img1, col1X, headerH + mainPadding + titleH, colW, imgH);
+                    ctx.fillStyle = '#4b5563';
+                    ctx.font = `${h * 0.02}px Pretendard, sans-serif`;
+                    wrapText(ctx, "교육 ODA의 대표주자: 개도국 대학 내 학과 신설 및 리모델링을 통해 고등교육 역량을 강화합니다.", col1X, headerH + mainPadding + titleH + imgH + mainPadding, colW, h * 0.025);
+
+                    // --- Column 2 ---
+                    const col2X = col1X + colW + gap;
+                    ctx.fillStyle = '#374151';
+                    ctx.font = `bold ${h * 0.03}px Pretendard, sans-serif`;
+                    wrapText(ctx, "2. 라오스 선도대학 프로그램의 시작", col2X, headerH + mainPadding, colW, h * 0.04);
+                    ctx.drawImage(img2, col2X, headerH + mainPadding + titleH, colW, imgH);
+                    ctx.fillStyle = '#4b5563';
+                    ctx.font = `${h * 0.02}px Pretendard, sans-serif`;
+                    wrapText(ctx, "서울대 X 라오스국립대: 현지 수요 조사를 바탕으로 낙농 산업 발전을 위한 전문 인재 양성 협력을 시작했습니다.", col2X, headerH + mainPadding + titleH + imgH + mainPadding, colW, h * 0.025);
+
+                    // --- Column 3 ---
+                    const col3X = col2X + colW + gap;
+                    const img3H = (imgH - (gap * 2)) / 3;
+                    ctx.fillStyle = '#374151';
+                    ctx.font = `bold ${h * 0.03}px Pretendard, sans-serif`;
+                    wrapText(ctx, "3. 학과 신설 준비: 공간과 커리큘럼", col3X, headerH + mainPadding, colW, h * 0.04);
+                    ctx.drawImage(img3_1, col3X, headerH + mainPadding + titleH, colW, img3H);
+                    ctx.drawImage(img3_2, col3X, headerH + mainPadding + titleH + img3H + gap, colW, img3H);
+                    ctx.drawImage(img3_3, col3X, headerH + mainPadding + titleH + (img3H + gap) * 2, colW, img3H);
+                    
+                    // --- Column 4 ---
+                    const col4X = col3X + colW + gap;
+                    ctx.fillStyle = '#111827';
+                    ctx.font = `bold ${h * 0.035}px Pretendard, sans-serif`;
+                    wrapText(ctx, "4. 라오스 국립대 낙농학과 신설 완료", col4X, headerH + mainPadding, col4W, h*0.045);
+                    ctx.drawImage(img4, col4X, headerH + mainPadding + titleH, col4W, imgH);
+                    ctx.fillStyle = '#4b5563';
+                    ctx.font = `bold ${h * 0.025}px Pretendard, sans-serif`;
+                    wrapText(ctx, `"라오스 낙농 산업의 미래를 이끌어갈 첫 걸음"`, col4X, headerH + mainPadding + titleH + imgH + mainPadding, col4W, h * 0.03);
+
+                } catch (error) {
+                    console.error("Failed to generate wall banner:", error);
+                    ctx.fillStyle = 'red';
+                    ctx.fillRect(0, 0, w, h);
+                    ctx.fillStyle = 'white';
+                    ctx.font = 'bold 48px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("Error Loading Images", w/2, h/2);
+                }
+            })();
+        }
+
+        const canvas = document.getElementById('wall-banner-canvas');
+        drawWallBanner(canvas);
+    </script>
+</body>
+</html>
