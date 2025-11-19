@@ -20,7 +20,8 @@ const ThreeScene = () => {
         // 1. Scene Setup
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x0a0a0a);
-        scene.fog = new THREE.Fog(0x0a0a0a, 10, 50);
+        // Removed fog for clearer colors
+        // scene.fog = new THREE.Fog(0x0a0a0a, 10, 50);
 
         const camera = new THREE.PerspectiveCamera(45, currentMount.clientWidth / currentMount.clientHeight, 0.1, 100);
         camera.position.set(8, 6, 8);
