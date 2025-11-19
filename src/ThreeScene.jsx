@@ -97,8 +97,8 @@ const ThreeScene = () => {
             });
 
             Promise.all([
-                loadImage("/photos/라오스국립대 로고.png", w * 0.08, h/2),
-                loadImage("/photos/서울대로고.png", w - (w * 0.08), h/2)
+                loadImage("/photos/nuol.png", w * 0.08, h/2),
+                loadImage("/photos/snu.png", w - (w * 0.08), h/2)
             ]);
             
             return texture;
@@ -349,9 +349,9 @@ const ThreeScene = () => {
         captureStandBanner1();
         captureStandBanner3();
 
-        function createChair(x, y, z, rY) { /* chair creation logic */ }
-        createSketchObject(new THREE.BoxGeometry(1.2, 0.75, 0.6), 0xffffff, -1.5, 0.375, -0.2); 
-        createSketchObject(new THREE.BoxGeometry(0.6, 0.75, 1.2), 0xffffff, -0.6, 0.375, -1.1);
+        // Tables
+        createSketchObject(new THREE.BoxGeometry(1.2, 0.75, 0.6), 0xffffff, -2.2, 0.375, -0.2);
+        createSketchObject(new THREE.BoxGeometry(0.6, 0.75, 1.2), 0xffffff, -1.3, 0.375, -1.1);
         
         // --- Animation Loop ---
         let animationFrameId;
