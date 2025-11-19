@@ -2,6 +2,7 @@
 import React from 'react';
 
 const WallBanner = () => {
+    const BASE_URL = import.meta.env.BASE_URL;
     const bannerStyle = {
         width: '4000px',
         height: '1600px',
@@ -72,7 +73,7 @@ const WallBanner = () => {
                             justifyContent: 'center',
                             padding: '10px'
                         }}>
-                            <img src="/photos/nuol.png" style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt="NUOL Logo" />
+                            <img src={`${BASE_URL}photos/nuol.png`} style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt="NUOL Logo" />
                         </div>
 
                         <div style={{
@@ -93,7 +94,7 @@ const WallBanner = () => {
                             justifyContent: 'center',
                             padding: '10px'
                         }}>
-                            <img src="/photos/snu.png" style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt="SNU Logo" />
+                            <img src={`${BASE_URL}photos/snu.png`} style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt="SNU Logo" />
                         </div>
                     </div>
 
@@ -175,7 +176,7 @@ const WallBanner = () => {
                                 marginBottom: '40px'
                             }}>
                                 <img
-                                    src="/photos/01/map.png"
+                                    src={`${BASE_URL}photos/01/map.png`}
                                     style={{
                                         width: '100%',
                                         height: '100%',
@@ -293,7 +294,7 @@ const WallBanner = () => {
                                 overflow: 'hidden'
                             }}>
                                 <img
-                                    src="/photos/02/1-2. FB_IMG_1685431432845.jpg"
+                                    src={`${BASE_URL}photos/02/1-2. FB_IMG_1685431432845.jpg`}
                                     style={{
                                         width: '100%',
                                         height: '100%',
@@ -317,7 +318,7 @@ const WallBanner = () => {
                                     overflow: 'hidden'
                                 }}>
                                     <img
-                                        src="/photos/02/1.png"
+                                        src={`${BASE_URL}photos/02/1.png`}
                                         style={{
                                             width: '100%',
                                             height: '100%',
@@ -333,7 +334,7 @@ const WallBanner = () => {
                                     overflow: 'hidden'
                                 }}>
                                     <img
-                                        src="/photos/02/2.png"
+                                        src={`${BASE_URL}photos/02/2.png`}
                                         style={{
                                             width: '100%',
                                             height: '100%',
@@ -349,7 +350,7 @@ const WallBanner = () => {
                                     overflow: 'hidden'
                                 }}>
                                     <img
-                                        src="/photos/02/3.png"
+                                        src={`${BASE_URL}photos/02/3.png`}
                                         style={{
                                             width: '100%',
                                             height: '100%',
@@ -463,7 +464,7 @@ const WallBanner = () => {
                                     marginBottom: '12px'
                                 }}>
                                     <img
-                                        src="/photos/03-present/1.jpg"
+                                        src={`${BASE_URL}photos/03-present/1.jpg`}
                                         style={{
                                             width: '100%',
                                             height: '100%',
@@ -503,7 +504,7 @@ const WallBanner = () => {
                                         overflow: 'hidden'
                                     }}>
                                         <img
-                                            src="/photos/03-present/3.jpg"
+                                            src={`${BASE_URL}photos/03-present/3.jpg`}
                                             style={{
                                                 width: '100%',
                                                 height: '100%',
@@ -519,7 +520,7 @@ const WallBanner = () => {
                                         overflow: 'hidden'
                                     }}>
                                         <img
-                                            src="/photos/03-present/p3.png"
+                                            src={`${BASE_URL}photos/03-present/p3.png`}
                                             style={{
                                                 width: '100%',
                                                 height: '100%',
@@ -552,7 +553,7 @@ const WallBanner = () => {
                                     marginBottom: '12px'
                                 }}>
                                     <img
-                                        src="/photos/03-future/4.jpg"
+                                        src={`${BASE_URL}photos/03-future/4.jpg`}
                                         style={{
                                             width: '100%',
                                             height: '100%',
@@ -592,7 +593,7 @@ const WallBanner = () => {
                                         overflow: 'hidden'
                                     }}>
                                         <img
-                                            src="/photos/03-future/1.jpg"
+                                            src={`${BASE_URL}photos/03-future/1.jpg`}
                                             style={{
                                                 width: '100%',
                                                 height: '100%',
@@ -608,7 +609,7 @@ const WallBanner = () => {
                                         overflow: 'hidden'
                                     }}>
                                         <img
-                                            src="/photos/03-future/5.jpg"
+                                            src={`${BASE_URL}photos/03-future/5.jpg`}
                                             style={{
                                                 width: '100%',
                                                 height: '100%',

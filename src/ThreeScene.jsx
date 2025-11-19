@@ -97,9 +97,10 @@ const ThreeScene = () => {
                  img.src = src;
             });
 
+            const BASE_URL = import.meta.env.BASE_URL;
             Promise.all([
-                loadImage("/photos/nuol.png", w * 0.08, h/2),
-                loadImage("/photos/snu.png", w - (w * 0.08), h/2)
+                loadImage(`${BASE_URL}photos/nuol.png`, w * 0.08, h/2),
+                loadImage(`${BASE_URL}photos/snu.png`, w - (w * 0.08), h/2)
             ]);
             
             return texture;

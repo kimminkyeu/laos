@@ -2,6 +2,7 @@
 import React from 'react';
 
 const HangingBanner = () => {
+    const BASE_URL = import.meta.env.BASE_URL;
     const bannerStyle = {
         width: '1200px',
         height: '60px',
@@ -53,14 +54,14 @@ const HangingBanner = () => {
                 {/* Logos */}
                 <div style={{...logoStyle, left: '20px'}}>
                     <img
-                        src="/photos/nuol.png"
+                        src={`${BASE_URL}photos/nuol.png`}
                         alt="NUOL Logo"
                         className="w-full h-full object-contain"
                     />
                 </div>
                 <div style={{...logoStyle, right: '20px'}}>
                     <img
-                        src="/photos/snu.png"
+                        src={`${BASE_URL}photos/snu.png`}
                         alt="SNU Logo"
                         className="w-full h-full object-contain"
                     />
