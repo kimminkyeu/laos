@@ -37,25 +37,71 @@ const WallBanner = () => {
                     left: 0,
                     right: 0,
                     height: `${headerHeight}px`,
-                    backgroundColor: '#0f265d',
+                    backgroundColor: '#f3f4f6',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: '0 60px',
-                    zIndex: 10
+                    padding: 0,
+                    zIndex: 10,
+                    borderBottom: '1px solid #d1d5db'
                 }}>
-                    {/* Left: Logos */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '24px', height: '70px' }}>
-                        <img src="/photos/snu.png" style={{ height: '100%', objectFit: 'contain' }} alt="SNU Logo" />
-                        <img src="/photos/nuol.png" style={{ height: '100%', objectFit: 'contain' }} alt="NUOL Logo" />
+                    {/* Left: Logos Group with White Background */}
+                    <div style={{
+                        width: '600px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '40px',
+                        backgroundColor: '#ffffff',
+                        padding: '20px 0',
+                        borderRadius: '0 12px 12px 0',
+                        boxShadow: '0 2px 12px rgba(0,0,0,0.08)'
+                    }}>
+                        <div style={{
+                            width: '100px',
+                            height: '100px',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '10px'
+                        }}>
+                            <img src="/photos/nuol.png" style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt="NUOL Logo" />
+                        </div>
+
+                        <div style={{
+                            fontSize: '42px',
+                            fontWeight: '900',
+                            color: '#1e3a8a',
+                            letterSpacing: '2px'
+                        }}>
+                            NUOL - SNU
+                        </div>
+
+                        <div style={{
+                            width: '100px',
+                            height: '100px',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '10px'
+                        }}>
+                            <img src="/photos/snu.png" style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt="SNU Logo" />
+                        </div>
                     </div>
 
-                    {/* Right: Section Navigation */}
-                    <div style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
-                        <div style={{ color: 'white', fontSize: '14px', fontWeight: '600', letterSpacing: '0.5px' }}>01 GLOBAL</div>
-                        <div style={{ color: 'white', fontSize: '14px', fontWeight: '600', letterSpacing: '0.5px' }}>02 CONNECTION</div>
-                        <div style={{ color: 'white', fontSize: '14px', fontWeight: '600', letterSpacing: '0.5px' }}>03 PROCESS</div>
-                        <div style={{ color: 'white', fontSize: '14px', fontWeight: '600', letterSpacing: '0.5px' }}>04 RESULT</div>
+                    {/* Right: Title */}
+                    <div style={{
+                        fontSize: '20px',
+                        fontWeight: '700',
+                        color: '#1f2937',
+                        textAlign: 'right',
+                        lineHeight: '1.4',
+                        maxWidth: '600px',
+                        paddingRight: '60px'
+                    }}>
+                        Remodeling the livestock department (dairy course) of the National University of Laos
                     </div>
                 </div>
 
