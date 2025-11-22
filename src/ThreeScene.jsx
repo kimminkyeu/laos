@@ -49,7 +49,57 @@ const ThreeScene = () => {
         scene.add(dirLight);
 
         // --- TEXTURE GENERATION FOR BANNER ---
-        function createBannerTexture(widthM, heightM) {
+        // Entrance banner (navy background, NUOL-SNU order)
+        function createEntranceBannerTexture(widthM, heightM) {
+            const canvas = document.createElement('canvas');
+            const scaleFactor = 100;
+            canvas.width = widthM * scaleFactor * 2;
+            canvas.height = heightM * scaleFactor * 2;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+            const navyBlue = '#0d1b3d';
+
+            ctx.fillStyle = navyBlue;
+            ctx.fillRect(0, 0, w, h);
+
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = 'white';
+            ctx.font = `700 ${h * 0.6}px Roboto, sans-serif`;
+            ctx.fillText("SNU Leading University Projects for International Cooperation", w / 2, h / 2);
+
+            const texture = new THREE.CanvasTexture(canvas);
+            const loadImage = (src, x, y) => new Promise((resolve) => {
+                 const img = new Image();
+                 img.crossOrigin = "Anonymous";
+                 img.onload = () => {
+                    const radius = h * 0.7;
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(x, h/2, radius/2, 0, Math.PI * 2);
+                    ctx.fillStyle = 'white';
+                    ctx.fill();
+                    ctx.clip();
+                    ctx.drawImage(img, x - radius/2, h/2 - radius/2, radius, radius);
+                    ctx.restore();
+                    texture.needsUpdate = true;
+                    resolve();
+                 };
+                 img.src = src;
+            });
+
+            const BASE_URL = import.meta.env.BASE_URL;
+            Promise.all([
+                loadImage(`${BASE_URL}photos/nuol.png`, w * 0.08, h/2),
+                loadImage(`${BASE_URL}photos/snu.png`, w - (w * 0.08), h/2)
+            ]);
+
+            return texture;
+        }
+
+        // Inner banners (white background, SNU-NUOL order)
+        function createInnerBannerTexture(widthM, heightM) {
             const canvas = document.createElement('canvas');
             const scaleFactor = 100;
             canvas.width = widthM * scaleFactor * 2;
@@ -105,7 +155,7 @@ const ThreeScene = () => {
                 loadImage(`${BASE_URL}photos/snu.png`, w * 0.08, h/2),
                 loadImage(`${BASE_URL}photos/nuol.png`, w - (w * 0.08), h/2)
             ]);
-            
+
             return texture;
         }
 
@@ -158,13 +208,26 @@ const ThreeScene = () => {
         createSketchObject(pillarGeo, 0x999999, -2.95, 1.25, 1.95); 
         createSketchObject(pillarGeo, 0x999999, 2.95, 1.25, 1.95); 
 
-        const tex6m = createBannerTexture(6, 0.3);
-        const tex4m = createBannerTexture(4, 0.3);
+        // Entrance banner (6m, navy) and inner banners (6m, 4m x2, white)
+        const texEntrance6m = createEntranceBannerTexture(6, 0.3);
+        const texInner6m = createInnerBannerTexture(6, 0.3);
+        const texInner4m = createInnerBannerTexture(4, 0.3);
         const whiteMat = createFaceMaterial(0xffffff);
-        const mat6m = [whiteMat, whiteMat, whiteMat, whiteMat, new THREE.MeshBasicMaterial({ map: tex6m }), new THREE.MeshBasicMaterial({ map: tex6m })];
-        createSketchObject(new THREE.BoxGeometry(6, 0.3, 0.05), null, 0, 2.35, -1.95, 0, 0, 0, mat6m);
-        const mat4m = [new THREE.MeshBasicMaterial({ map: tex4m }), new THREE.MeshBasicMaterial({ map: tex4m }), whiteMat, whiteMat, whiteMat, whiteMat];
-        createSketchObject(new THREE.BoxGeometry(0.05, 0.3, 4), null, -2.95, 2.35, 0, 0, 0, 0, mat4m);
+
+        // Front entrance (6m, navy, NUOL-SNU)
+        const matEntrance6m = [whiteMat, whiteMat, whiteMat, whiteMat, new THREE.MeshBasicMaterial({ map: texEntrance6m }), new THREE.MeshBasicMaterial({ map: texEntrance6m })];
+        createSketchObject(new THREE.BoxGeometry(6, 0.3, 0.05), null, 0, 2.35, 1.95, 0, 0, 0, matEntrance6m);
+
+        // Back wall (6m, white, SNU-NUOL)
+        const matInner6m = [whiteMat, whiteMat, whiteMat, whiteMat, new THREE.MeshBasicMaterial({ map: texInner6m }), new THREE.MeshBasicMaterial({ map: texInner6m })];
+        createSketchObject(new THREE.BoxGeometry(6, 0.3, 0.05), null, 0, 2.35, -1.95, 0, 0, 0, matInner6m);
+
+        // Left wall (4m, white, SNU-NUOL)
+        const matInner4m = [new THREE.MeshBasicMaterial({ map: texInner4m }), new THREE.MeshBasicMaterial({ map: texInner4m }), whiteMat, whiteMat, whiteMat, whiteMat];
+        createSketchObject(new THREE.BoxGeometry(0.05, 0.3, 4), null, -2.95, 2.35, 0, 0, 0, 0, matInner4m);
+
+        // Right wall (4m, white, SNU-NUOL)
+        createSketchObject(new THREE.BoxGeometry(0.05, 0.3, 4), null, 2.95, 2.35, 0, 0, 0, 0, matInner4m);
 
         // HangingBanner2 (6m x 0.3m) - Front entrance between pillars
         const hangingBanner2Geo = new THREE.BoxGeometry(6, 0.3, 0.05);
