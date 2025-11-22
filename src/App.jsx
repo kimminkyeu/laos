@@ -8,6 +8,8 @@ import WallBanner from './WallBanner.jsx'; // The actual banner design component
 import WallBannerEditor from './WallBannerEditor.jsx'; // The host/editor page for the banner
 import StandBanner1Editor from './StandBanner1Editor.jsx'; // Stand Banner 1 editor
 import StandBanner3Editor from './StandBanner3Editor.jsx'; // Stand Banner 3 editor
+import BackwallBanner1Editor from './BackwallBanner1Editor.jsx'; // Backwall Banner 1 editor
+import BackwallBanner2Editor from './BackwallBanner2Editor.jsx'; // Backwall Banner 2 editor
 import ThreeScene from './ThreeScene.jsx';
 
 const Header = () => (
@@ -18,6 +20,8 @@ const Header = () => (
             <Link to="/wall-banner-editor" className="font-bold text-white hover:text-yellow-400 transition">Wall Banner</Link>
             <Link to="/stand-banner-1" className="font-bold text-white hover:text-yellow-400 transition">Stand Banner 1</Link>
             <Link to="/stand-banner-3" className="font-bold text-white hover:text-yellow-400 transition">Stand Banner 3</Link>
+            <Link to="/backwall-banner-1" className="font-bold text-white hover:text-yellow-400 transition">Backwall 1</Link>
+            <Link to="/backwall-banner-2" className="font-bold text-white hover:text-yellow-400 transition">Backwall 2</Link>
         </nav>
     </header>
 );
@@ -34,6 +38,8 @@ const App = () => {
                         <Route path="/wall-banner-editor" element={<WallBannerEditor />} />
                         <Route path="/stand-banner-1" element={<StandBanner1Editor />} />
                         <Route path="/stand-banner-3" element={<StandBanner3Editor />} />
+                        <Route path="/backwall-banner-1" element={<BackwallBanner1Editor />} />
+                        <Route path="/backwall-banner-2" element={<BackwallBanner2Editor />} />
                     </Routes>
                 </main>
             </div>

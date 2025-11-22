@@ -73,7 +73,7 @@ const WallBanner = () => {
                             justifyContent: 'center',
                             padding: '10px'
                         }}>
-                            <img src={`${BASE_URL}photos/nuol.png`} style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt="NUOL Logo" />
+                            <img src={`${BASE_URL}photos/snu.png`} style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt="SNU Logo" />
                         </div>
 
                         <div style={{
@@ -82,7 +82,7 @@ const WallBanner = () => {
                             color: '#1e3a8a',
                             letterSpacing: '2px'
                         }}>
-                            NUOL - SNU
+                            SNU - NUOL
                         </div>
 
                         <div style={{
@@ -94,7 +94,7 @@ const WallBanner = () => {
                             justifyContent: 'center',
                             padding: '10px'
                         }}>
-                            <img src={`${BASE_URL}photos/snu.png`} style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt="SNU Logo" />
+                            <img src={`${BASE_URL}photos/nuol.png`} style={{ width: '100%', height: '100%', objectFit: 'contain' }} alt="NUOL Logo" />
                         </div>
                     </div>
 

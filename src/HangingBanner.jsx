@@ -37,7 +37,7 @@ const HangingBanner = () => {
                 {/* Top Section - White background with title and subtitle */}
                 <div className="h-[65%] bg-white flex flex-col items-center justify-center px-4">
                     <h1 className="text-[#1f3578] font-black text-xl tracking-wide leading-none">
-                        NUOL - SNU
+                        SNU - NUOL
                     </h1>
                     <p className="text-[#1f3578] font-semibold text-[10px] leading-tight tracking-tight mt-0.5">
                         Remodeling the livestock department (dairy course) of the National University of Laos
@@ -54,15 +54,15 @@ const HangingBanner = () => {
                 {/* Logos */}
                 <div style={{...logoStyle, left: '20px'}}>
                     <img
-                        src={`${BASE_URL}photos/nuol.png`}
-                        alt="NUOL Logo"
+                        src={`${BASE_URL}photos/snu.png`}
+                        alt="SNU Logo"
                         className="w-full h-full object-contain"
                     />
                 </div>
                 <div style={{...logoStyle, right: '20px'}}>
                     <img
-                        src={`${BASE_URL}photos/snu.png`}
-                        alt="SNU Logo"
+                        src={`${BASE_URL}photos/nuol.png`}
+                        alt="NUOL Logo"
                         className="w-full h-full object-contain"
                     />
                 </div>

@@ -7,6 +7,8 @@ import html2canvas from 'html2canvas';
 import WallBanner from './WallBanner.jsx';
 import StandBanner1 from './StandBanner1.jsx';
 import StandBanner3 from './StandBanner3.jsx';
+import BackwallBanner1 from './BackwallBanner1.jsx';
+import BackwallBanner2 from './BackwallBanner2.jsx';
 
 const ThreeScene = () => {
     const mountRef = useRef(null);
@@ -66,7 +68,7 @@ const ThreeScene = () => {
             ctx.textBaseline = 'middle';
             ctx.fillStyle = snuBlue;
             ctx.font = `900 ${h * 0.35}px Roboto, sans-serif`;
-            ctx.fillText("NUOL - SNU", w / 2, h * 0.35);
+            ctx.fillText("SNU - NUOL", w / 2, h * 0.35);
             ctx.font = `600 ${h * 0.12}px Noto Sans KR, sans-serif`;
             ctx.fillText("Remodeling the livestock department (dairy course) of the National University of Laos", w / 2, h * 0.55);
             ctx.fillStyle = 'white';
@@ -99,8 +101,8 @@ const ThreeScene = () => {
 
             const BASE_URL = import.meta.env.BASE_URL;
             Promise.all([
-                loadImage(`${BASE_URL}photos/nuol.png`, w * 0.08, h/2),
-                loadImage(`${BASE_URL}photos/snu.png`, w - (w * 0.08), h/2)
+                loadImage(`${BASE_URL}photos/snu.png`, w * 0.08, h/2),
+                loadImage(`${BASE_URL}photos/nuol.png`, w - (w * 0.08), h/2)
             ]);
             
             return texture;
@@ -234,9 +236,9 @@ const ThreeScene = () => {
         const standBanner1Obj = createSketchObject(standBannerGeo, 0xffffff, -2.5, 0.75, 1.5, -0.2, 0.5, 0);
         createSketchObject(new THREE.BoxGeometry(0.4, 0.05, 0.3), 0x333333, -2.5, 0.025, 1.6, 0, 0.5, 0);
 
-        // Stand Banner 3
-        const standBanner3Obj = createSketchObject(standBannerGeo, 0xffffff, 1.5, 0.75, 1.5, -0.2, -0.3, 0);
-        createSketchObject(new THREE.BoxGeometry(0.4, 0.05, 0.3), 0x333333, 1.5, 0.025, 1.6, 0, -0.3, 0);
+        // Stand Banner 3 - Positioned to the left of BackwallBanner2, aligned horizontally
+        const standBanner3Obj = createSketchObject(standBannerGeo, 0xffffff, 0.5, 0.75, 1.5, 0, -0.3, 0);
+        createSketchObject(new THREE.BoxGeometry(0.4, 0.05, 0.3), 0x333333, 0.5, 0.025, 1.6, 0, -0.3, 0);
 
         // Create containers for StandBanner1
         const banner1Container = document.createElement('div');
@@ -360,6 +362,135 @@ const ThreeScene = () => {
 
         captureStandBanner1();
         captureStandBanner3();
+
+        // Backwall Banner 1 (2m x 1.6m) - Right side, rotated 90 degrees
+        const backwallBanner1Geo = new THREE.BoxGeometry(2.0, 1.6, 0.05);
+        const backwallBanner1Obj = createSketchObject(backwallBanner1Geo, 0xffffff, 2.975, 0.8, -0.95, 0, Math.PI / 2, 0);
+
+        // Create container for BackwallBanner1
+        const backwallBanner1Container = document.createElement('div');
+        backwallBanner1Container.style.width = '2000px';
+        backwallBanner1Container.style.height = '1600px';
+        backwallBanner1Container.style.position = 'fixed';
+        backwallBanner1Container.style.left = '0';
+        backwallBanner1Container.style.top = '0';
+        backwallBanner1Container.style.opacity = '0';
+        backwallBanner1Container.style.pointerEvents = 'none';
+        document.body.appendChild(backwallBanner1Container);
+
+        const backwall1Root = ReactDOM.createRoot(backwallBanner1Container);
+        backwall1Root.render(<BackwallBanner1 />);
+
+        // Capture and apply BackwallBanner1 texture
+        const captureBackwallBanner1 = (retryCount = 0) => {
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(() => {
+                    setTimeout(() => {
+                        const element = backwallBanner1Container.querySelector('div');
+                        if (!element) {
+                            if (retryCount < 3) {
+                                captureBackwallBanner1(retryCount + 1);
+                            }
+                            return;
+                        }
+
+                        const images = element.querySelectorAll('img');
+                        const imagePromises = Array.from(images).map(img => {
+                            if (img.complete) return Promise.resolve();
+                            return new Promise((resolve) => {
+                                img.onload = resolve;
+                                img.onerror = resolve;
+                            });
+                        });
+
+                        Promise.all(imagePromises).then(() => {
+                            html2canvas(element, {
+                                scale: 2,
+                                useCORS: true,
+                                allowTaint: true,
+                                backgroundColor: '#ffffff',
+                                logging: false
+                            }).then(canvas => {
+                                const texture = new THREE.CanvasTexture(canvas);
+                                texture.needsUpdate = true;
+                                backwallBanner1Obj.mesh.material = new THREE.MeshBasicMaterial({
+                                    map: texture,
+                                    side: THREE.DoubleSide
+                                });
+                            }).catch(err => {
+                                console.error("Error rendering BackwallBanner1:", err);
+                            });
+                        });
+                    }, 500 + (retryCount * 500));
+                });
+            }
+        };
+
+        // Backwall Banner 2 (2m x 1.3m) - Positioned at previous StandBanner3 location
+        const backwallBanner2Geo = new THREE.BoxGeometry(2.0, 1.3, 0.05);
+        const backwallBanner2Obj = createSketchObject(backwallBanner2Geo, 0xffffff, 1.8, 0.65, 1.5, -0.2, -0.3, 0);
+
+        // Create container for BackwallBanner2
+        const backwallBanner2Container = document.createElement('div');
+        backwallBanner2Container.style.width = '2000px';
+        backwallBanner2Container.style.height = '1300px';
+        backwallBanner2Container.style.position = 'fixed';
+        backwallBanner2Container.style.left = '0';
+        backwallBanner2Container.style.top = '0';
+        backwallBanner2Container.style.opacity = '0';
+        backwallBanner2Container.style.pointerEvents = 'none';
+        document.body.appendChild(backwallBanner2Container);
+
+        const backwall2Root = ReactDOM.createRoot(backwallBanner2Container);
+        backwall2Root.render(<BackwallBanner2 />);
+
+        // Capture and apply BackwallBanner2 texture
+        const captureBackwallBanner2 = (retryCount = 0) => {
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(() => {
+                    setTimeout(() => {
+                        const element = backwallBanner2Container.querySelector('div');
+                        if (!element) {
+                            if (retryCount < 3) {
+                                captureBackwallBanner2(retryCount + 1);
+                            }
+                            return;
+                        }
+
+                        const images = element.querySelectorAll('img');
+                        const imagePromises = Array.from(images).map(img => {
+                            if (img.complete) return Promise.resolve();
+                            return new Promise((resolve) => {
+                                img.onload = resolve;
+                                img.onerror = resolve;
+                            });
+                        });
+
+                        Promise.all(imagePromises).then(() => {
+                            html2canvas(element, {
+                                scale: 2,
+                                useCORS: true,
+                                allowTaint: true,
+                                backgroundColor: '#ffffff',
+                                logging: false
+                            }).then(canvas => {
+                                const texture = new THREE.CanvasTexture(canvas);
+                                texture.needsUpdate = true;
+                                backwallBanner2Obj.mesh.material = new THREE.MeshBasicMaterial({
+                                    map: texture,
+                                    side: THREE.DoubleSide
+                                });
+                            }).catch(err => {
+                                console.error("Error rendering BackwallBanner2:", err);
+                            });
+                        });
+                    }, 500 + (retryCount * 500));
+                });
+            }
+        };
+
+        captureBackwallBanner1();
+        captureBackwallBanner2();
 
         // Tables
         createSketchObject(new THREE.BoxGeometry(1.2, 0.75, 0.6), 0xffffff, -2.2, 0.375, -0.2);
