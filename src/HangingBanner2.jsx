@@ -6,7 +6,7 @@ const HangingBanner2 = () => {
     const bannerStyle = {
         width: '6000px',
         height: '300px',
-        backgroundColor: '#0d1b3d', // Deep dark navy blue
+        background: 'linear-gradient(90deg, #1a2b52 0%, #2d4a7c 15%, #0d1b3d 30%, #0d1b3d 70%, #2d4a7c 85%, #1a2b52 100%)',
         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
         display: 'flex',
         alignItems: 'center',
