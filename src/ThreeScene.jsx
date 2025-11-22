@@ -9,6 +9,7 @@ import StandBanner1 from './StandBanner1.jsx';
 import StandBanner3 from './StandBanner3.jsx';
 import BackwallBanner1 from './BackwallBanner1.jsx';
 import BackwallBanner2 from './BackwallBanner2.jsx';
+import HangingBanner2 from './HangingBanner2.jsx';
 
 const ThreeScene = () => {
     const mountRef = useRef(null);
@@ -165,6 +166,10 @@ const ThreeScene = () => {
         const mat4m = [new THREE.MeshBasicMaterial({ map: tex4m }), new THREE.MeshBasicMaterial({ map: tex4m }), whiteMat, whiteMat, whiteMat, whiteMat];
         createSketchObject(new THREE.BoxGeometry(0.05, 0.3, 4), null, -2.95, 2.35, 0, 0, 0, 0, mat4m);
 
+        // HangingBanner2 (6m x 0.3m) - Front entrance between pillars
+        const hangingBanner2Geo = new THREE.BoxGeometry(6, 0.3, 0.05);
+        const hangingBanner2Obj = createSketchObject(hangingBanner2Geo, 0xffffff, 0, 2.35, 1.95);
+
         // Backwall with WallBanner component rendered as texture
         const backwallGeo = new THREE.BoxGeometry(4.0, 1.6, 0.05);
         const backwall = createSketchObject(backwallGeo, 0xffffff, 0.9, 0.8, -1.9);
@@ -230,6 +235,65 @@ const ThreeScene = () => {
         };
 
         captureAndApplyTexture();
+
+        // Create container for HangingBanner2
+        const hangingBanner2Container = document.createElement('div');
+        hangingBanner2Container.style.width = '6000px';
+        hangingBanner2Container.style.height = '300px';
+        hangingBanner2Container.style.position = 'fixed';
+        hangingBanner2Container.style.left = '-10000px';
+        hangingBanner2Container.style.top = '0';
+        document.body.appendChild(hangingBanner2Container);
+
+        const hangingBanner2Root = ReactDOM.createRoot(hangingBanner2Container);
+        hangingBanner2Root.render(<HangingBanner2 />);
+
+        // Capture and apply HangingBanner2 texture
+        const captureHangingBanner2 = (retryCount = 0) => {
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(() => {
+                    setTimeout(() => {
+                        const element = hangingBanner2Container.querySelector('div');
+                        if (!element) {
+                            if (retryCount < 3) {
+                                captureHangingBanner2(retryCount + 1);
+                            }
+                            return;
+                        }
+
+                        const images = element.querySelectorAll('img');
+                        const imagePromises = Array.from(images).map(img => {
+                            if (img.complete) return Promise.resolve();
+                            return new Promise((resolve) => {
+                                img.onload = resolve;
+                                img.onerror = resolve;
+                            });
+                        });
+
+                        Promise.all(imagePromises).then(() => {
+                            html2canvas(element, {
+                                scale: 2,
+                                useCORS: true,
+                                allowTaint: true,
+                                backgroundColor: '#ffffff',
+                                logging: false
+                            }).then(canvas => {
+                                const texture = new THREE.CanvasTexture(canvas);
+                                texture.needsUpdate = true;
+                                hangingBanner2Obj.mesh.material = new THREE.MeshBasicMaterial({
+                                    map: texture,
+                                    side: THREE.DoubleSide
+                                });
+                            }).catch(err => {
+                                console.error("Error rendering HangingBanner2:", err);
+                            });
+                        });
+                    }, 500 + (retryCount * 500));
+                });
+            }
+        };
+
+        captureHangingBanner2();
 
         // Stand Banner 1
         const standBannerGeo = new THREE.BoxGeometry(0.5, 1.5, 0.02);
