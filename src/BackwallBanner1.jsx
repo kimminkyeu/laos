@@ -25,7 +25,7 @@ const BackwallBanner1 = () => {
                 zIndex: 0
             }}>
                 <img
-                    src={`${BASE_URL}photos/milky-way-small-sample.png`}
+                    src={`${BASE_URL}photos/new-millky-way.png`}
                     alt="Milky Way Background"
                     style={{
                         width: '100%',

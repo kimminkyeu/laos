@@ -67,7 +67,7 @@ const ThreeScene = () => {
             ctx.textBaseline = 'middle';
             ctx.fillStyle = 'white';
             ctx.font = `700 ${h * 0.6}px Roboto, sans-serif`;
-            ctx.fillText("SNU Leading University Projects for International Cooperation", w / 2, h / 2);
+            ctx.fillText("Leading University Projects for International Cooperation", w / 2, h / 2);
 
             const texture = new THREE.CanvasTexture(canvas);
             const loadImage = (src, x, y) => new Promise((resolve) => {
@@ -304,8 +304,10 @@ const ThreeScene = () => {
         hangingBanner2Container.style.width = '6000px';
         hangingBanner2Container.style.height = '300px';
         hangingBanner2Container.style.position = 'fixed';
-        hangingBanner2Container.style.left = '-10000px';
+        hangingBanner2Container.style.left = '0';
         hangingBanner2Container.style.top = '0';
+        hangingBanner2Container.style.opacity = '0';
+        hangingBanner2Container.style.pointerEvents = 'none';
         document.body.appendChild(hangingBanner2Container);
 
         const hangingBanner2Root = ReactDOM.createRoot(hangingBanner2Container);
@@ -490,9 +492,9 @@ const ThreeScene = () => {
         captureStandBanner1();
         captureStandBanner3();
 
-        // Backwall Banner 1 (2m x 1.6m) - Right side, rotated 90 degrees
+        // Backwall Banner 1 (2m x 1.6m) - Front position (swapped with Banner2)
         const backwallBanner1Geo = new THREE.BoxGeometry(2.0, 1.6, 0.05);
-        const backwallBanner1Obj = createSketchObject(backwallBanner1Geo, 0xffffff, 2.975, 0.8, -0.95, 0, Math.PI / 2, 0);
+        const backwallBanner1Obj = createSketchObject(backwallBanner1Geo, 0xffffff, 1.8, 0.8, 1.5, 0, -0.3, 0);
 
         // Create container for BackwallBanner1
         const backwallBanner1Container = document.createElement('div');
@@ -553,14 +555,14 @@ const ThreeScene = () => {
             }
         };
 
-        // Backwall Banner 2 (2m x 1.3m) - Positioned at previous StandBanner3 location
-        const backwallBanner2Geo = new THREE.BoxGeometry(2.0, 1.3, 0.05);
-        const backwallBanner2Obj = createSketchObject(backwallBanner2Geo, 0xffffff, 1.8, 0.65, 1.5, -0.2, -0.3, 0);
+        // Backwall Banner 2 (2m x 1.6m) - Right side, rotated 90 degrees (swapped with Banner1)
+        const backwallBanner2Geo = new THREE.BoxGeometry(2.0, 1.6, 0.05);
+        const backwallBanner2Obj = createSketchObject(backwallBanner2Geo, 0xffffff, 2.975, 0.8, -0.95, 0, Math.PI / 2, 0);
 
         // Create container for BackwallBanner2
         const backwallBanner2Container = document.createElement('div');
         backwallBanner2Container.style.width = '2000px';
-        backwallBanner2Container.style.height = '1300px';
+        backwallBanner2Container.style.height = '1600px';
         backwallBanner2Container.style.position = 'fixed';
         backwallBanner2Container.style.left = '0';
         backwallBanner2Container.style.top = '0';

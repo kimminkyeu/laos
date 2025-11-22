@@ -29,7 +29,7 @@ const HangingBanner2 = () => {
     };
 
     return (
-        <div className="w-full h-full flex items-center justify-center p-8">
+        <div className="w-full h-full flex items-center justify-center">
             <div style={bannerStyle}>
                 {/* Flowing water pattern overlay */}
                 <div style={{
@@ -72,11 +72,11 @@ const HangingBanner2 = () => {
                     position: 'relative',
                     zIndex: 2
                 }}>
-                    {/* Left Logo - SNU */}
+                    {/* Left Logo - NUOL */}
                     <div style={logoStyle}>
                         <img
-                            src={`${BASE_URL}photos/snu.png`}
-                            alt="SNU Logo"
+                            src={`${BASE_URL}photos/nuol.png`}
+                            alt="NUOL Logo"
                             className="w-full h-full object-contain p-3"
                         />
                     </div>
@@ -90,39 +90,25 @@ const HangingBanner2 = () => {
                         gap: '12px',
                         textAlign: 'center'
                     }}>
-                        {/* Main Heading - Grand Opening */}
+                        {/* Main Text */}
                         <h1 style={{
                             fontSize: '90px',
-                            fontWeight: '900',
+                            fontWeight: '700',
                             color: 'white',
-                            letterSpacing: '3px',
-                            lineHeight: '1',
-                            margin: 0,
-                            textTransform: 'uppercase',
-                            fontFamily: "'Roboto', sans-serif"
-                        }}>
-                            Grand Opening: Dept. of Dairy Science at NUOL
-                        </h1>
-
-                        {/* Subheading - Seoul National University */}
-                        <p style={{
-                            fontSize: '48px',
-                            fontWeight: '600',
-                            color: '#d4af37', // Elegant gold color
                             letterSpacing: '2px',
-                            lineHeight: '1',
+                            lineHeight: '1.2',
                             margin: 0,
                             fontFamily: "'Roboto', sans-serif"
                         }}>
-                            Seoul National University Leading University Project
-                        </p>
+                            Leading University Projects for International Cooperation
+                        </h1>
                     </div>
 
-                    {/* Right Logo - NUOL */}
+                    {/* Right Logo - SNU */}
                     <div style={logoStyle}>
                         <img
-                            src={`${BASE_URL}photos/nuol.png`}
-                            alt="NUOL Logo"
+                            src={`${BASE_URL}photos/snu.png`}
+                            alt="SNU Logo"
                             className="w-full h-full object-contain p-3"
                         />
                     </div>

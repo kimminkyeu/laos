@@ -13,7 +13,7 @@ const BackwallBanner2Editor = () => {
                 const containerHeight = containerRef.current.clientHeight;
 
                 const bannerWidth = 2000;
-                const bannerHeight = 1300;
+                const bannerHeight = 1600;
 
                 const scaleX = (containerWidth - 80) / bannerWidth; // 80px padding
                 const scaleY = (containerHeight - 80) / bannerHeight;
@@ -43,7 +43,7 @@ const BackwallBanner2Editor = () => {
         >
             <div style={{
                 width: '2000px',
-                height: '1300px',
+                height: '1600px',
                 transform: `scale(${scale})`,
                 transformOrigin: 'center center'
             }}>

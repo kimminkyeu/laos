@@ -725,55 +725,19 @@ const WallBanner = () => {
                             justifyContent: 'center',
                             overflow: 'hidden'
                         }}>
-                            {/* Photo Placeholder */}
-                            <div style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontSize: '18px',
-                                fontWeight: '600',
-                                color: '#92400e'
-                            }}>
-                                Ceremony Photo<br/>Students & Faculty
-                            </div>
-
-                            {/* Overlay Box */}
-                            <div style={{
-                                position: 'absolute',
-                                bottom: '60px',
-                                left: '60px',
-                                right: '60px',
-                                padding: '40px',
-                                backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                                borderRadius: '12px',
-                                boxShadow: '0 20px 25px -5px rgba(0,0,0,0.3)',
-                                border: '3px solid #f59e0b'
-                            }}>
-                                <h3 style={{
-                                    margin: 0,
-                                    fontSize: '36px',
-                                    fontWeight: '900',
-                                    color: '#d97706',
-                                    lineHeight: '1.3',
-                                    textAlign: 'center'
-                                }}>
-                                    Laos' First Dairy Science<br/>Department Established
-                                </h3>
-                                <p style={{
-                                    margin: '16px 0 0 0',
-                                    fontSize: '18px',
-                                    fontWeight: '600',
-                                    color: '#92400e',
-                                    textAlign: 'center'
-                                }}>
-                                    Training the next generation of dairy specialists
-                                </p>
-                            </div>
+                            {/* Background Image */}
+                            <img
+                                src={`${BASE_URL}photos/farm-present.jpeg`}
+                                alt="Farm Present"
+                                style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'cover'
+                                }}
+                            />
                         </div>
 
                         {/* Text Area */}

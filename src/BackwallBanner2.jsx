@@ -7,7 +7,7 @@ const BackwallBanner2 = () => {
 
     const bannerStyle = {
         width: '2000px',
-        height: '1300px',
+        height: '1600px',
         position: 'relative',
         overflow: 'hidden',
         fontFamily: "'Roboto', 'Noto Sans KR', sans-serif",
@@ -25,8 +25,8 @@ const BackwallBanner2 = () => {
                 zIndex: 0
             }}>
                 <img
-                    src={`${BASE_URL}photos/farm-sample.jpeg`}
-                    alt="Farm Background"
+                    src={`${BASE_URL}photos/farm-future.jpeg`}
+                    alt="Farm Future"
                     style={{
                         width: '100%',
                         height: '100%',
