@@ -49,18 +49,25 @@ const BackwallBanner1 = () => {
             {/* Content Layer */}
             <div style={{
                 position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                zIndex: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: '80px'
+                top: '60px',
+                left: '60px',
+                right: '60px',
+                zIndex: 2
             }}>
-                {/* You can add title, logos, or other content here */}
+                {/* Title Text */}
+                <h1 style={{
+                    fontSize: '72px',
+                    fontWeight: '900',
+                    color: '#1f3578',
+                    margin: 0,
+                    textAlign: 'center',
+                    lineHeight: '1.3',
+                    textShadow: '0 4px 12px rgba(255, 255, 255, 0.8), 0 2px 4px rgba(255, 255, 255, 0.6)',
+                    fontFamily: "'Roboto', sans-serif",
+                    letterSpacing: '1px'
+                }}>
+                    The future of Lao dairy advances with the National University
+                </h1>
             </div>
         </div>
     );

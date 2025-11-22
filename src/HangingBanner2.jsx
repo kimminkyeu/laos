@@ -31,12 +31,46 @@ const HangingBanner2 = () => {
     return (
         <div className="w-full h-full flex items-center justify-center p-8">
             <div style={bannerStyle}>
+                {/* Flowing water pattern overlay */}
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    opacity: 0.08,
+                    background: `
+                        repeating-linear-gradient(
+                            45deg,
+                            transparent,
+                            transparent 100px,
+                            rgba(255, 255, 255, 0.3) 100px,
+                            rgba(255, 255, 255, 0.3) 102px,
+                            transparent 102px,
+                            transparent 200px
+                        ),
+                        repeating-linear-gradient(
+                            -45deg,
+                            transparent,
+                            transparent 150px,
+                            rgba(255, 255, 255, 0.2) 150px,
+                            rgba(255, 255, 255, 0.2) 152px,
+                            transparent 152px,
+                            transparent 300px
+                        )
+                    `,
+                    pointerEvents: 'none',
+                    zIndex: 1
+                }}></div>
+
                 {/* Content Container - Flex layout with logos and text */}
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '60px'
+                    gap: '60px',
+                    position: 'relative',
+                    zIndex: 2
                 }}>
                     {/* Left Logo - SNU */}
                     <div style={logoStyle}>
